@@ -1,32 +1,94 @@
-# IME/USP LaTeX Template
-
-A LaTeX template for Masters and PhD dissertations/theses according to
-IME/USP guidelines. Feel free to customize to your needs and, if
-appropriate, send us improvements. :)
-
-You need a working LaTeX installation, including xindy, biber and biblatex
-(among other packages). The document may be compiled with "make" and this
-repo includes a compiled version of it. There are lots of comments on the
-"tese-exemplo.tex" file about the packages used and things you might want
-to customize or learn more about. These comments are in Brazilian Portuguese.
-
-## Acknowledgements
-
- * Original version: Jesús P. Mena-Chalco
- * Revision: Fabio Kon and Paulo Feofiloff
- * Latest updates (utf8, biblatex etc.): Nelson Lago
+# Master's degree dissertation - Athos Ribeiro - IME-USP
 
 ## TODO
 
- * Recent biblatex versions (2017) use "labeldate+extradate" instead of
-   "labelyear+extrayear"; in a couple of years we should modify the
-   files plainnat-ime.bbx and plainnat-ime.cbx accordingly.
+- Adjust with kiskadee's documentation
+- Add kiskadee screenshots
+- Translate abstract to pr-BR
+- Finish Structured review section
+- Fix paper structure in introduction
 
- * The translated version of the natbib package included in the template
-   is old; we should update it.
+### Fabio
 
-## License
+- fix content table before writing
+- rename chapters:  kiskadee and rankings
+  - architecture/architectural design
+  - implementation/experimentation
 
-The files that are derived from other projects (natbib-ime.sty,
-alpha-ime.bst etc.) are subject to their own licenses. The rest
-of the code is available under the MIT License.
+- Conclusions and future work
+  - nao é um resumo
+  - não repetir abstract
+
+## Questions
+
+- Should I keep names before citations with this references styles? example: Jonson et al JOHNSON Et Al, 2017 performed...
+
+## Dissertation structure
+
+### Introduction
+
+- What is static analysis?
+- Static analysis advantages
+- Static analysis problems
+- Possible solutions
+- Describe our work
+  - Research question
+  - hypotheses
+  - contributions
+- Describe the dissertation structure
+
+### Structured Literature Review
+
+- Describe methodology
+- List selected relevant work
+- Refer to the static analysis survey
+- Discuss important papers
+
+### kiskadee
+
+- Continuous static analysis
+- Firehose
+- Software repositories
+- multiple analyzers
+- Architecture
+- Front end
+
+### Ranking warnings methodology
+
+- SANER Paper content goes here.
+
+### Results and Discussion
+
+- Results from SANER paper
+
+### Conclusion
+
+- kiskadee usage
+- Next steps for kiskadee
+- Future work
+
+
+## Structure tips
+
+1. An Introductory Chapter
+Tell the reader the problem you are tackling in this project.
+State clearly how you aim to deal with this problem.
+Limit the scope of your study.
+Sketch out how the thesis is structured to achieve your aim.
+
+2. Background Chapters
+Include in these chapters all the material required to lead up to your own work.
+Ensure that there is a flow of narrative that explains why each topic is being discussed
+
+3. A ‘Core’ Account of Your Own Work
+Begin with a formal statement of your hypotheses or research questions.
+Follow this with an account of the methods you chose to test your hypotheses or answer your questions, and why you chose them.
+Report the results of applying these methods.
+
+4. Synthesis
+You are now ready to pull the whole thesis together.
+Discuss the implications of your results.
+Draw strong conclusions backed up by your discussion.
+Check that they respond to the aim stated in your introduction.
+pegar última versão do documento do nelson
+

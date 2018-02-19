@@ -32,17 +32,17 @@
 % elas são repassadas para todas as demais classes, e diversas classes mudam
 % seu comportamento em função da língua (em especial, babel/polyglossia).
 % A última língua da lista é a língua padrão do documento.
-%\documentclass[11pt,twoside,brazil,english]{book}
-\documentclass[11pt,twoside,english,brazil]{book}
+\documentclass[11pt,twoside,brazil,english]{book}
+%\documentclass[11pt,twoside,english,brazil]{book}
 %\documentclass[11pt,twoside,english,brazil]{article}
 
 % Vários pacotes e opções de configuração genéricos; para personalizar o
 % resultado, modifique este arquivo.
-\input miolo-preambulo
+\input meta/miolo-preambulo
 
 % O arquivo com os dados bibliográficos; você pode executar este comando
 % mais de uma vez para acrescentar múltiplos arquivos
-\addbibresource{bibliografia.bib}
+\addbibresource{references.bib}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -66,7 +66,7 @@
 % Para gerar a capa e demais páginas iniciais de uma tese/dissertação para o
 % IME/USP automaticamente no formato sugerido, modifique os dados neste arquivo.
 % Se estiver escrevendo um artigo ou for gerar a capa etc. manualmente, remova.
-\input metadados-tese
+\input meta/metadados-tese
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -93,7 +93,7 @@
 
 % As folhas de rosto no formato sugerido para teses/dissertações do IME/USP.
 % Se estiver escrevendo um artigo ou não quiser usar, remova.
-\input folhas-de-rosto
+\input meta/folhas-de-rosto
 
 % Sumário (obrigatório)
 \tableofcontents
@@ -135,7 +135,7 @@
 
 % Os capítulos de compõem a dissertação/tese, com numeração normal, podem
 % ser inseridos diretamente aqui ou "puxados" de outros arquivos
-\input cap-introducao
+\input chapters/introduction
 
 % Um parágrafo em LaTeX termina com uma linha vazia; como não é possível
 % ter certeza que um arquivo incluído (neste caso, "paginas-iniciais")
@@ -143,16 +143,19 @@
 % garantir que o último parágrafo realmente terminou.
 \par
 
-\input cap-latex
+\input chapters/literature-review
 \par
 
-\input cap-tutorial
+\input chapters/kiskadee
 \par
 
-\input cap-exemplos
+\input chapters/ranking
 \par
 
-\input cap-conclusoes
+\input chapters/results
+\par
+
+\input chapters/conclusion
 \par
 
 
@@ -168,8 +171,8 @@
 
 % Os apêndices podem ser inseridos diretamente aqui ou "puxados" de outros
 % arquivos
-\input ape-conjuntos
-\par
+%\input ape-conjuntos
+%\par
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% SEÇÕES FINAIS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -193,7 +196,7 @@
 %%%%%%%% Bibliografia com biblatex (preferido): %%%%%%%%
 
 \printbibliography[
-  title=Bibliografia\label{bibliografia},
+  %title=Bibliografia\label{bibliografia},
   % Inclui a bibliografia no sumário
   heading=bibintoc,
 ]

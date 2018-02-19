@@ -1,0 +1,214 @@
+%% ------------------------------------------------------------------------- %%
+\chapter{Introduction}
+\label{ch:introduction}
+
+Any reasonably large program in production has bugs,
+and minimizing their number and impact is an important aspect of software
+development. However, finding bugs is often a difficult task, especially when
+they do not manifest themselves directly but result in security flaws.
+
+Automated static analysis tools, also referred to as static analyzers, can
+alleviate this problem by examining the source code of computer programs for
+pre-determined properties, particularly security flaws. In theory, source code
+static analysis can explore abstractions of all possible program behaviors,
+which is not feasible with software testing~\cite{hovemeyer_finding_2004}.
+Hence, this class of tools has the potential to find problems that tend to
+manifest themselves infrequently and are, therefore, harder to detect through
+other methods~\cite{black2009static}, which makes their usage a compementary
+approach to automated testing. Once aware of a possible anomaly, developers can
+inspect the suggested section of the program and take action when necessary,
+patching the flawed code even before it reaches production releases.
+
+Such tools show great promise but, due to the undecidable nature of the
+problem~\cite{landi_undecidability_1992}, static analyzers commonly use
+heuristics or approximations to determine properties for a given code
+construct, which frequently induces them to make inaccurate assumptions
+regarding the behavior of the program under evaluation. These assumptions may
+either lead the tool to generate a warning\footnote{ When a static analyzer
+finds an anomaly, it produces an \emph{alarm} or \emph{warning}. In this paper,
+we use both terms interchangeably to refer to a location in the source code
+pointed as a problematic site by a static analyzer. We use the term
+\emph{report} to refer to a set of warnings generated in a single run of a
+static analyzer for a given target program.  } that does not reveal a real flaw
+in the analyzed program, i.e., a \emph{false positive}, or to fail generating a
+warning to a real flaw, i.e., a \emph{false negative}. Since static analysis
+enumerates many execution paths, static analyzer reports frequently contain an
+excessive amount of information, which often includes a substantial amount of
+false positives due to the undecidability problem.
+
+Empirical studies show that even carefully designed static analyzers may
+generate warnings at false positive rates that can exceed
+30\%~\cite{kremenek2004correlation}. Such false alarms require manual
+inspection, increasing the effort of analyzing tool reports when they include
+significant amounts of false
+positives~\cite{muske2013review,heckman2007adaptively}, hindering the usage and
+general adoption of automated source code analyzers~\cite{johnson_why_2013},
+which can lead static analyzers to be discarded as
+irrelevant~\cite{kremenek2003z}.
+A substantial improvement in this area could foster
+a wider inclusion of static analysis in software development cycles which,
+in turn, could help reduce the number of bugs and security flaws in many different
+kinds of software.
+
+The mere reduction of the false positive rates obtained from static analysis
+--- and, consequently, of the amount of counterproductive information generated
+by static analyzers --- can smooth the process of manually verifying analyzer
+reports. This has prompted the elaboration of several studies that propose
+either pruning or ranking the warnings from static analysis reports to deal
+with false
+alarms~\cite{ruthruff_predicting_2008,kremenek2004correlation,heckman2009model,jung2005taming}.
+These studies usually combine information extracted from both the static
+analysis reports as well as the project being examined to derive conclusions
+and infer if an alarm is an actual software flaw. In contrast, we hypothesize
+that the incorporation of various specialist tools, i.e., the use of multiple
+static analysis tools in conjunction, makes it possible to produce a reasonably
+accurate predictive model without the need for any knowledge about the examined
+source code.  This is advantageous because this model could serve as an entry
+point for enhanced static analysis reports without the need of meticulous
+pre-processing and training steps for each inspected program. Seeing that some
+tools perform better than others in specific tasks due to different analysis
+methods, the usage of multiple static analysis tools might also increase static
+analysis coverage, reducing the number of false negatives that could occur by
+using a single tool~\cite{black2009static}. Obviously, using multiple tools
+also inflates the absolute number of false positives. This downside, however,
+is an acceptable compromise given the corresponding improvement in the
+\emph{rate} of false positives --- the core of this work.
+
+Furthermore, some static analysis techniques require significant processing to
+perform the analysis~\cite{pan_bug_2006}, which makes the whole static analysis
+process expensive. The latter issue also impacts research on static analysis,
+since much processing is needed when one wants to analyze how different tools
+perform on a large software corpus, study false alarm rates, or investigate
+vulnerabilities behavior. Johnson et al.~\cite{johnson_why_2013} conducted a
+survey to understand static analysis adoption on development processes and
+found that false positives and the way warnings are presented to the user are
+some of the reasons why static analyzers are underused, and that improving the
+integration of these tools to the development process with more intuitive
+presentation of flaws and better explanations could help increase their
+adoption.  Automating the static analysis process would also enable the
+creation of static analysis report databases, which can be queried by
+developers before new software releases and, if made public, would also provide
+more information to researchers, enabling more studies, or allow them to focus
+on the actual research rather than waiting for static analyzers to complete
+their analyses.
+
+
+%% ------------------------------------------------------------------------- %%
+\section{Objectives}
+\label{sec:objectives}
+
+In this study, we present \textit{kiskadee}, a system designed to support
+\emph{continuous} static analysis in software repositories using multiple
+static analyzers to generate, store, and rank warnings. Since each static
+analyzer has its own report format, kiskadee converts all reports generated to
+a common output language. By running multiple static analyzers on the same code
+base, kiskadee reduces the number of false negatives in the analysis. To
+address false positives, kiskadee ranks warnings in the static analysis reports
+using the AdaBoost algorithm's~\cite{freund1999short} classification
+probabilities.  Warnings with the highest rank are more likely to indicate real
+and more critical software flaws and warnings with the lowest rank are more
+likely to be false positives. In this context, a warning is a single issue
+produced by a static analyzer. Finally, kiskadee stores the ranked static
+analysis reports in a database. The ranked reports in the database are made
+available to kiskadee users, providing them with more accurate data. Moreover,
+\textit{kiskadee} can track warnings by software version, providing developers
+with a relatively small list of warnings to be investigated in a suggested
+order, favoring the use of static analysis in in development processes.
+
+%%%% <<<<<<
+
+For our ranking experiments, we created and trained a
+predictive model by processing a synthetic static analysis test
+suite, which is a collection of source code snippets with specific flaws
+injected in known locations. We ran multiple static analyzers using the test
+suite as input and converted the analysis reports to a universal format to
+ease further processing.
+%since
+%each tool usually reports warnings in its own unique format (it is easier work
+%with the warnings once they are in a uniform, computer readable language).
+Then, we checked whether each single warning matched one of the injected flaws in
+the test suite, labeling each either as true positive or
+false positive. After the labeling step, we extracted the
+characteristics used to train our model. These did not include
+any characteristics from the analyzed source code and project history, which
+tend to be the most relevant ones when predicting warnings positiveness, as
+shown in previous works~\cite{yoon2014reducing, jung2005taming}. To compensate
+for this, we used an ensemble learning method~\cite{aima} to train several
+weak classifiers, which were then able to vote about the positiveness of new examples.
+Finally, instead of just classifying new examples as true and false positives,
+we ranked the warnings based on their probabilities of being real flaws, where
+the top entries were more likely to be of interest and the last entries were more
+likely to be false positives.
+
+We guided this investigation based on the following research questions:
+
+\begin{description}
+  \item [RQ1:] \textit{Is it possible to rank or classify static analysis warnings without also
+  manually inspecting and preprocessing the analyzed source code?} This would make
+  such results more readily usable for a large number of projects.
+
+  \item [RQ2:] \textit{Is is possible to partially or completely automate the process of
+    labeling warnings as false positives or false negatives?} This would enable
+    studies with large data sets in environments where manually inspecting
+    warnings is not a frequent activity.
+\end{description}
+
+The results obtained were very promising: using three static analyzers with an
+aggregate false positive rate of 0.61, we achieved an accuracy of 0.8, not too
+distant from the state of the art (0.85) which depends on direct source code
+analysis.
+
+\section{Contributions}
+\label{sec:contributions}
+
+This work provides the following three major contributions:
+
+\begin{enumerate}[label=C\arabic*]
+  \item \textbf{Continuous static analysis tool.}
+    \textit{kiskadee} is a tool able to continuously run different static\
+    analyzers in different software versions by monitoring software\
+    repositories through an extensible interface. It then stores the analysis\
+    reports into a database, using a common reporting format. If a kiskadee's\
+    production instance is made publicly available, its\
+    database may aid both open source software developers, who will be able to query\
+    warnings reported for their projects and act on possible flaws in their\
+    source code base, and researchers, who will be able to use the database as a\
+    static analysis benchmark.
+
+  \item \textbf{Method to rank warnings from different static analyzers based\
+    on criticality and veracity of the reports.} By answering our research\
+    question, it will be possible to propose such method and rank\
+    the warnings in the \textit{kiskadee} database, providing more value to\
+    the output of static analyzers.
+
+  \item \textbf{Static analysis warnings dataset.} During this work, we also
+    generated a publicly available data set of static analysis alarms from
+    multiple static analyzers on a universal report format, generated by
+    analyzing a synthetic static analysis test suite. This dataset can be used
+    to extend our work or aid different researches on static analysis.
+
+\end{enumerate}
+
+The software packages produced during this research were released as open
+source software. Links for resources, documentation, related papers and source
+code are available at \url{https://pagure.io/kiskadee}. kiskadee's development
+was partially sponsored by the Google Summer of Code program under the Fedora
+Project organization supervision. Students of University of Brasília also
+contributed to kikskadee source code. We included appropriate acknowledgements
+and credits in the Acknowledgements section, in the begining of this document.
+
+\section{Work Structure}
+\label{sec:structure}
+
+The rest of this document begins with a closer view on the limitations in the
+quality of current static analysis tools reports and on how previous works make
+good use of source code analysis to minimize them
+(Section~\ref{sec:related_work}). As we will see, this entails significant
+effort for each single program to be analyzed, highlighting the utility of
+avoiding this step. After that, we present our experience with the approach
+discussed. In Section~\ref{sec:data}, we talk about how we normalized the data
+obtained from the static analysis tools for further processing and how we chose
+the features used to train our ranking model and, in Section~\ref{sec:ranking},
+we present our approach to process this data and build this model. We finally
+proceed to describe and discuss the experimental validation and obtained
+results in Section~\ref{sec:results}.

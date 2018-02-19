@@ -1,0 +1,342 @@
+\chapter{Ranking Source Code Static Analysis Warnings from Multiple Tools}
+
+\section{Data Extraction}\label{sec:data}
+
+% We approach the problem of ranking multiple static analyzer warnings with a
+% supervised learning method. 
+% for that, we need a set of examples...
+
+To build a predictive model as discussed, we need to obtain good and sufficient
+data to train it. The first step we take in this direction is choosing both the
+source code to analyze and the tools with which to analyze it. Then, to
+adequately process the output of multiple tools, we need to normalize the
+information provided by them. We approach this in two levels: at the first
+level, we translate alarms from the different tools into a unified format and
+apply labels to each warning to distinguish them into either true positives or
+false positives. At the second level, we associate each warning to specific features
+that will compose a data set to train our prediction model.
+
+\subsection{Choosing Data Sources}
+
+A data set of labeled static analysis warnings may be obtained by running
+static analyzers on previously selected source code and matching the
+triggered warnings with actual software defects, labeling the warnings as true
+or false positives. The source code used for extracting the data set may
+consist of real-world software or synthetic test cases, i.e., programs written
+with intentional defects.
+
+Previous studies have used real-world software to arbitrate about the
+positiveness of static analysis warnings~\cite{kremenek2004correlation,
+jung2005taming, yoon2014reducing, yuksel2013classification,
+ruthruff_predicting_2008}. A relevant obstacle for using real-world software to
+retrieve a data set is that one must meticulously inspect each alarm triggered
+by a static analyzer and the relevant location in the analyzed program to
+determine whether the alarm is a true or a false positive.  Unless one has
+access to an environment where alarms positiveness information is already
+available, as in Ruthruff~\cite{ruthruff_predicting_2008}, performing these
+manual inspections is an overly time-consuming approach, which must be
+performed for each different static analysis tool being assessed. Differently,
+the location and other details of the injected flaws in synthetic test cases
+are previously known, facilitating studies and freeing researchers from
+performing expensive searches along their data sets.
+
+Juliet~\cite{juliet} is a synthetic C/C++ test suite with 61,387 test cases
+covering 118 different software flaw categories. Each test case is a code
+section with an instance of a specific flaw (to capture true positives) and an
+additional section with a correct, fixed instance of that previous flawed section (to
+capture false positives).  Juliet also includes a user guide with instructions
+on how to assess and label static analysis tool warnings generated over its
+test cases. We use Juliet version 1.2 to generate our data set.
+
+We ran 3 static analysis tools to generate the data set for our experiments.
+The Criteria to select the tools were straightforward:
+\begin{enumerate}
+  \item The tool must be able to examine C/C++ code for security flaws (e.g., buffer overflows, null pointer dereferences); and
+  \item the tool source code must be released under an open source license.
+\end{enumerate}
+Criterion 1 ensures the tool can analyze a subset of Juliet test cases, whereas
+criterion 2 preserves us from disputes by tool vendors regarding the
+analysis of the results (such as allegations of sub-optimal tool
+calibration or detrimental calculation methodology)\footnote{In fact, if we chose
+to work with
+proprietary tools, we would want to contact the vendors about our experiments
+and request permission before publishing our results.}. Open Source tools also simplify the
+process of retrieving string constructs for tool messages and categories when
+necessary, since we can verify their source code.
+Table~\ref{tab:selected_tools} introduces the tools here employed to generate
+data through Juliet test cases analyses.
+
+  \begin{table}[!htbp]
+    \begin{threeparttable}
+    \begin{center}
+        \begin{tabular}{rcrc}\hline
+          Tool & Target Language & License & Version \\
+        \hline
+          Clang Static Analyzer & C/C++ & NCSA/MIT & 3.9.1\\
+          Cppcheck & C/C++ & GPLv3 & 1.79\\
+          Frama-C$^{*}$ & C & LGPLv2 & 1.14 \\ \hline
+        \end{tabular}
+        \begin{tablenotes}
+          \small
+        \item[*] \footnotesize{Although Frama-C cannot analyze C++ code, it meets criterion~1 by analyzing a substantial subset of Juliet test cases. Frama-C was used with its value analysis plugin activated.}
+        \end{tablenotes}
+        \caption{Selected static analysis tools}\label{tab:selected_tools}
+    \end{center}
+    \end{threeparttable}
+\end{table}
+
+Before examining Juliet with the selected static analysis tools, we prune the
+test suite to prevent analysis of test cases that depend on constructs of
+specific operating systems or external libraries.
+Table~\ref{tab:juliet_numbers} shows the total number of test cases in Juliet
+before pruning warnings and the number of test cases after the pruning step for
+both C and C++. The latter are the tests examined by the static analyzers for
+alarms generation, consisting of 39,100 C/C++ test cases.
+
+  \begin{table}
+    \begin{center}
+        \begin{tabular}{crr}\hline
+          & Before Pruning & After Pruning \\
+        \hline
+          C & 36,078 & 22,459 \\
+          C++ & 25,309 & 16,641 \\
+          Total & 61,387 & 39,100 \\ \hline
+        \end{tabular}
+        \caption{Number of Juliet test cases}\label{tab:juliet_numbers}
+    \end{center}
+\end{table}
+
+\subsection{Collecting Labeled Warnings From Multiple Static Analyzers}\label{sec:data:labels}
+
+Based on Juliet 1.2 documentation, we process each file in the remaining test
+cases to produce a list (L) with information on whether a static analysis
+warning for a given location should be labeled as true positive or false
+positive. If a static analyzer generates an alarm for a location not included
+in this list or for a category not covered by the flaws present in that location, we do not
+draw any conclusions about such location, since it would require thorough
+manual inspection. Instead, we discard that warning. Then, we run each static
+analyzer on the pruned test suite to generate the static analyses reports.
+Table~\ref{tab:unlabeled_warnings} shows the total number of warnings
+generated, before discarding the warnings whose labeling step cannot be
+automated.
+
+  \begin{table}
+    \begin{center}
+        \begin{tabular}{rr}\hline
+          Tool & Warnings \\
+        \hline
+          Clang Static Analyzer & 37,229 \\
+          Cppcheck & 124,025 \\
+          Frama-C & 120,573 \\
+          Total & 281,827 \\ \hline
+        \end{tabular}
+        \caption{Total number of warnings generated per tool}\label{tab:unlabeled_warnings}
+    \end{center}
+\end{table}
+
+% If we have any space left, we can include information about firehose (unified report format)
+Seeing that each tool has its own report format, we reduce the effort of
+parsing reports by converting them all to a unified report (UR) in a common format.
+By matching each possible warning produced by the static analyzers with
+the corresponding flaw categories covered by Juliet, we can use the list L to
+produce labels for each warning in UR.
+
+The set of labeled warnings can finally be examined to have a training set
+extracted from it, as discussed in the next subsection.
+Table~\ref{tab:labeled_warnings} summarizes the findings of the static
+analyzers on the test cases, including the number of true and false positives
+generated (TP and FP, respectively), the false positive rates and the precision
+for each tool and for UR, the aggregated reports composed of the warnings of
+all tools.
+
+  \begin{table}
+    \begin{center}
+        \begin{tabular}{crrrrr}\hline
+          Tool & Warnings & TP & FP & FP Rate & Precision \\
+        \hline
+          Clang Analyzer & 6207 & 984 & 5223 & 0.84 & 0.16 \\
+          Cppcheck & 4035 & 314 & 3721 & 0.92 & 0.08 \\
+          Frama-C & 15717 & 8892 & 6825 & 0.43 & 0.57 \\
+          \textbf{Aggregated tools} & 25959 & 10190 & 15769 & \textbf{0.61}  & \textbf{0.39} \\ \hline
+        \end{tabular}
+        \caption{Labeled warnings per tool}\label{tab:labeled_warnings}
+    \end{center}
+\end{table}
+
+% discussão de taxa de falsos positivos e taxa de warnings utilizados deve ser icluída em resultados?
+
+\subsection{Extracting Features from Labeled Warnings}\label{sec:data:features}
+
+%With the analysis reports obtained by running the static analyzers on the set
+%of known security flaws, we can empirically select the features that we will
+%use for our model training. Although warning messages are different in each
+%static analyzer since there are no standards for warning messages and not all
+%of these tools adopt CWE terminology, it is possible to associate warnings
+%triggered by the same software flaw, even if it is by using simple heuristics,
+%like the location of each tool finding, which could also be used as a feature.
+
+We extract the features used to train our classifier from the set of labeled
+warnings. Here, a feature is any characteristic that can be attributed to a
+warning in the data set.  To select relevant features for false and positive
+alarm classification, we refer to previous studies that also rely on
+characteristics extracted from alarms and source code to classify alarms
+\cite{ruthruff_predicting_2008, kremenek2004correlation, heckman2009model,
+jung2005taming}. For instance, Kremenek et al. \cite{kremenek2004correlation}
+demonstrate that the tool warning positiveness is highly correlated to code
+locality.  However, we only use the data extracted from the warnings
+themselves, not relying on other information, such as the analyzed project
+change history, size and complexity metrics, or artifact names (e.g., file name,
+function name, package name). By not collecting such information, we are able to
+produce a more generic model applicable to different contexts without the
+need to perform the expensive training step for each project one may want to
+analyze.
+
+Our set of features is extracted by processing the aggregated report of labeled
+warnings.
+While the name of the tool that triggered a warning, the programming
+language analyzed, and the severity of the warning can be inferred by looking
+at a single warning at a time, other features require processing the whole
+aggregated report to be extracted. Namely, these are (1) the number of times the same
+location was pointed as flawed in the report, (2) the number of warnings triggered
+around the location of a given warning (e.g., warnings for locations at least 3
+lines away from the current warning), (3) the category of the software flaw
+suggested by the warning, (4) which other static analyzers generated warnings for
+the same location, and (5) the number of warnings generated for the same file the
+current warning is pointing to.
+
+With the exception of warning category and warning severity, the features
+mentioned above can be readily obtained for a given warning by analyzing the
+whole aggregated report. We assign a category to a warning by matching its
+message with one of the categories in Table~\ref{tab:warning_categories}. Since
+Juliet test cases cover a wide range of software flaw categories and each
+static analyzer can detect a specific set of bug categories (necessarily mapped
+to Juliet categories), this list can be extended, breaking categories into more
+specific subcategories to seek improvement in the importance of this feature in
+the prediction model.
+
+\begin{table}
+  \begin{center}
+      \begin{tabular}{ll}\hline
+        Category name & Description \\
+      \hline
+        buffer &  Buffer related issues (e.g.: Buffer overrun) \\
+        overflow & Integer overflow and underflow \\
+        div0 & Divisions by zero \\
+        uninitvar & Uninitialized variable \\
+        unusedvar & Unused variable \\
+        pointer & Pointer issues (e.g.: Null pointer dereference) \\
+        operator & Misused operators (e.g.: $if(myVar = buf[i])\{\}$) \\
+        funcparams & Issues with function parameter \\
+        alwaysbool & Expression is either always true or always false \\
+        memory & Memory issues (e.g.: Memory leak, Double free)\\
+        other & Warnings not fit to the categories above \\ \hline
+      \end{tabular}
+      \caption{Warning Categories}\label{tab:warning_categories}
+  \end{center}
+\end{table}
+
+To assign a severity to the warnings, we normalize the severities of each tool
+to values between 0 and 5. We assume that 5 refers to errors in the source
+code, like syntax errors that would prevent the source code to be compiled; 4
+refers to potential flaws; 3 and lower values refer to style or similar issues.
+Thus, If a tool does not provide severity information, we assume 4. The
+following list summarizes the features obtained from the labeled aggregated
+report.
+
+\begin{itemize}
+  \item \textbf{Tool name:} Name of the tool that generated the warning;
+  \item \textbf{Number warnings in the same file:} Number of warnings found in the same file as the warning in question, regardless of what tool generated it;
+  \item \textbf{Category:} Category of the warning, as shown in Table~\ref{tab:warning_categories};
+  \item \textbf{Redundancy level:} Number of warnings triggered for that same line, regardless of what tool generated it;
+  \item \textbf{Number of neighbors:} Number of warnings less than 4 lines away from the triggered warning. Does not include the ones counted in Redundancy level;
+  \item Finally, we include one \textbf{boolean feature} for each of the static analyzers to indicate if that tool triggered a warning for that location. We understand that these features help confirm software flaws and take advantage of the fact that each tool performs differently for specific cases.
+\end{itemize}
+
+% If we get any space left:
+% mostrar alguns números sobre as features?
+  % quantidade por categoria;
+  % media ou gráfico com warnings por arquivo
+
+\section{Arbitrating on Warnings Positiveness}\label{sec:ranking}
+
+Given the data collected using the methodology presented in the previous
+section, we now build a prediction model to classify each triggered warning as
+being a true positive or a false positive. The classification results may also be
+used to rank the warnings, as we describe in the second part of this section.
+
+\subsection{Training Decision Trees with AdaBoost}
+
+To make our model applicable to a wider variety of projects in a generic
+fashion, we only use data extracted from the warnings themselves. Since we do
+not inspect the source code or project history, which are shown to be the best
+places to look for features when classifying source code static analysis
+warnings as true or false positives, we turn to ensemble learning methods to
+train several weak classifiers with our feature set. These weak classifiers
+combined can then arbitrate on new examples together, composing a stronger
+classifier.
+
+A weak classifier performs slightly better than a random
+classifier, i.e., $\epsilon < 0.5$ where $\epsilon$ is the classification error
+of the classifier. Ensemble learning methods combine the prediction of weak
+classifiers to build stronger classifiers with lower errors~\cite{aima}. One
+widely used ensemble learning method is boosting~\cite{aima}, whose main idea is to run a
+weak learning algorithm several times in different distributions of the
+training set to generate various weak classifiers to be combined into a
+stronger one. For this study, we chose to use the AdaBoost algorithm~\cite{freund1999short}. % last sentence needs improvement
+
+AdaBoost works by calling a base learner algorithm (\textbf{h}) repeatedly
+(\textbf{T} times) while maintaining a set of weights over the training data
+set. The weights are used to select a subset of the training data set to serve
+as input for the base learner algorithm in a given iteration of AdaBoost
+(higher weights mean a higher likelihood of an example being selected for an
+iteration). Each example in the training data set starts with the same weight,
+but they are updated after each iteration: the weights of misclassified
+examples are increased and the weights of examples correctly classified are
+decreased. This forces the base learner algorithm to focus on the hard examples
+of the training data set~\cite{freund1999short}. Each weak classifier is
+assigned a voting weight (\boldmath$\alpha$) based on its importance. The
+strong binary classifier (\textbf{H}) is given by Eq.~(\ref{eq:ada}), where
+\textbf{x} is a new example to be classified.
+
+% if space permits, we could add the complete adaboost algorithm here
+\begin{equation}\label{eq:ada}
+  H\left(x\right) = \mathit{sign} \left( \sum\limits_{t=1}^T\alpha_t h_t(x) \right)
+\end{equation}
+
+The AdaBoost algorithm works with any given base learner. We use a decision
+tree learning algorithm as our base learner because we have both categorical
+and non-categorical features in our data set, as shown in
+Section~\ref{sec:data}, and decision trees can work with both, without the need
+to pre-process the data set. Furthermore, as shown in the literature, decision trees have been shown to
+perform well with AdaBoost~\cite{drucker1996boosting}.
+
+We divide our data set (the list of labeled features obtained in
+Section~\ref{sec:data}) into a training set and a test set. The training set is
+built by randomly selecting 75\% of the examples labeled as true positives and
+75\% of the examples labeled as false positives from the features data set. We
+then proceed to train our predictive model using a 10-fold cross-validation
+with the training set. This cross-validation consists in dividing a data set
+into 10 groups: 9 groups are used to train the model while the remaining group is
+used to test it. The training step is repeated 10 times, switching the group
+used for testing until all groups were used in this way.  We perform the
+10-fold cross-validation technique with different values for \textbf{T} in
+AdaBoost. We then compare the average performance of the classifiers obtained for
+each different value of \textbf{T} validated in this manner and use the best
+model trained during the cross-validation for that \textbf{T} to classify the
+test set.
+
+\subsection{Ranking Static Analysis Warnings}
+\label{subsec:ranking}
+
+Even though techniques to use AdaBoost on ranking problems are available in
+literature~\cite{freund2003efficient}, we take a simpler approach and rank
+warnings based on AdaBoost classification probabilities. We reorder the
+warnings in a list according to the probability given by our classification
+model of the warning being a true positive, where warnings with higher
+probabilities are ranked in the top of the list and warnings with lower
+probabilities of being true positives are arranged in the bottom of the list.
+This way, a programmer inspecting the ranked static analysis report may
+inspect only warnings in the list up to a given threshold, assuming a certain risk of
+missing true positives. Alternatively, he/she may stop inspecting warnings when
+false positives start to abound.
+

@@ -502,7 +502,7 @@
 
 % Diretório onde estão as figuras; com isso, não é preciso colocar o caminho
 % completo em \includegraphics. Na verdade, não precisa nem colocar a extensão
-\graphicspath{{./figuras/}}
+\graphicspath{{./figures/}}
 
 % Mais tipos de float e mais opções para personalização; este pacote
 % também acrescenta a possibilidade de definir "H" como opção de
@@ -696,7 +696,7 @@
 % e altere as opções do pacote hyperref.
 
 % Cria o arquivo de configuração para xindy lidar corretamente com hyperlinks.
-\begin{filecontents*}{hyperxindy.xdy}
+\begin{filecontents*}{vendor/hyperxindy.xdy}
 (define-attributes ("emph"))
 (markup-locref :open "\hyperpage{" :close "}" :attr "default")
 (markup-locref :open "\textbf{\hyperpage{" :close "}}" :attr "textbf")
@@ -717,7 +717,7 @@
 }
 
 \makeindex[
-  options=-C utf8 -M hyperxindy.xdy,
+  options=-C utf8 -M vendor/hyperxindy.xdy,
   intoc,
 ]
 
@@ -1139,3 +1139,13 @@
     \OR\ifentrytype{online}\OR\ifentrytype{misc}}
     {#1}
     {\MakeSentenceCase*{#1}}}
+
+%% Athos' imports
+\usepackage{booktabs}
+\usepackage[flushleft]{threeparttable}
+\usepackage{placeins}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{color}
+\usepackage{tikz}
+
