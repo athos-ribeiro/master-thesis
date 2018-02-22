@@ -63,3 +63,26 @@ releases and runs multiple static analyzers on each new release of the
 monitored software.  In another future work, we will present the integration of
 the concepts presented in this paper with \textbf{**BLIND REVIEW: OMITTED
 NAME**} tool.
+
+\section{Visualization}
+\label{sec:visualization}
+
+Related works propose methods to identify bugs included or fixed in specific
+software versions, as mentioned in Section \ref{history_review}.
+Also, there are existing tools like
+csdiff\footnote{\url{https://github.com/kdudka/csdiff}} that provide some
+logic to parse static analyzer reports from different software versions and
+list new and removed warnings. csdiff provides parsers for both cppcheck and
+the Clang Static Analyzer; a parser for Frama-C would have to be written.
+
+These tools and techniques could be used to filter warnings by version, so the
+ranked warning list displayed to the user will be a subset of the whole
+analysis report, containing only the warnings introduced in a specific version
+of the analyzed software. This could also aid in identifying false positives,
+as proposed by Kim et al.~\cite{kim_which_2007}, since the false positives are
+not fixed between versions.
+
+For our visualization tool, we will assess the effort needed to patch csdiff
+to suit our needs and the effort to reproduce related works. Then we will
+apply the technique that requires less effort to identify the warnings introduced
+in a specific version of a package.

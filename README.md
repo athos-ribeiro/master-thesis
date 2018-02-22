@@ -7,6 +7,7 @@
 - Translate abstract to pr-BR
 - Finish Structured review section
 - Fix paper structure in introduction
+- Improve XML listings
 
 ### Fabio
 
