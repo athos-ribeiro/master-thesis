@@ -20,6 +20,10 @@
   - nao é um resumo
   - não repetir abstract
 
+### PRMM
+
+- Architecture details
+
 ## Questions
 
 - Should I keep names before citations with this references styles? example: Jonson et al JOHNSON Et Al, 2017 performed...
