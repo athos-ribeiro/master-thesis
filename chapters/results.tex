@@ -8,7 +8,7 @@ discuss the performance of the binary prediction model trained with
 AdaBoost to classify static analysis tool warnings as true or false positives and
 evaluate the ranking system described in Section~\ref{subsec:ranking}.
 
-\subsection{Classifier}
+\section{Classifier}
 
 The data collection steps of our experiment resulted in a data set of $25,959$ labeled
 warnings. To train the classifier, we divided them
@@ -149,7 +149,7 @@ location.
 \end{figure}
 
 % ranking
-\subsection{Ranking}\label{subsection:ranking}
+\section{Ranking}\label{subsection:ranking}
 
 As mentioned before, we do not need to limit ourselves to a direct binary
 classification; it is also possible to use the trained predictive model to rank
@@ -246,7 +246,7 @@ software flaws in the test set are only presented in the end of the list, after
 6000 inspections.
 
 
-\subsection{Discussion and Limitations}\label{sec:discussion}
+\section{Discussion and Limitations}\label{sec:discussion}
 
 As can be observed by verifying the differences between the data in
 Table~\ref{tab:unlabeled_warnings} and Table~\ref{tab:labeled_warnings}, we
