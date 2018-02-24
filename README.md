@@ -6,23 +6,13 @@
 - Add kiskadee screenshots
 - Translate abstract to pr-BR
 - Finish Structured review section
-- Fix paper structure in introduction
 - Improve XML listings
 
 ### Fabio
 
-- fix content table before writing
-- rename chapters:  kiskadee and rankings
-  - architecture/architectural design
-  - implementation/experimentation
-
 - Conclusions and future work
   - nao é um resumo
   - não repetir abstract
-
-### PRMM
-
-- Architecture details
 
 ## Questions
 
