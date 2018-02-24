@@ -1,4 +1,5 @@
-\chapter{Results and Discussion}\label{cha:results}
+\chapter{Results and Discussion}
+\label{cha:results}
 \FloatBarrier
 
 After the steps of choosing the input data, selecting the static analysis
@@ -9,6 +10,7 @@ AdaBoost to classify static analysis tool warnings as true or false positives an
 evaluate the ranking system described in Section~\ref{subsec:ranking}.
 
 \section{Classifier}
+\label{sec:results_classifier}
 
 The data collection steps of our experiment resulted in a data set of $25,959$ labeled
 warnings. To train the classifier, we divided them
@@ -149,7 +151,8 @@ location.
 \end{figure}
 
 % ranking
-\section{Ranking}\label{subsection:ranking}
+\section{Ranking Warnings}
+\label{sec:results_ranking}
 
 As mentioned before, we do not need to limit ourselves to a direct binary
 classification; it is also possible to use the trained predictive model to rank
@@ -246,7 +249,8 @@ software flaws in the test set are only presented in the end of the list, after
 6000 inspections.
 
 
-\section{Discussion and Limitations}\label{sec:discussion}
+\section{Discussion and Limitations}
+\label{sec:discussion}
 
 As can be observed by verifying the differences between the data in
 Table~\ref{tab:unlabeled_warnings} and Table~\ref{tab:labeled_warnings}, we

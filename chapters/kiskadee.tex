@@ -1,5 +1,5 @@
 \chapter{Continuous Static Analysis Tool Design}
-\label{ch:continuous_static_analysis}
+\label{ch:kiskadee}
 
 In Free/Libre and Open Source Software (FLOSS) projects, a
 common source of bug reports are the GNU/Linux distributions.
@@ -40,6 +40,7 @@ their repositories for this work may provide a broader user
 base for the tools and techniques developed in this research.
 
 \section{Features and System Overview}
+\label{sec:system_overview}
 
 \begin{figure}[hbt]
 \centering
@@ -104,6 +105,7 @@ themselves. Researchers can also use kiskadee's database in different contexts.
 We now describe important details related to kiskadee features.
 
 \section{Monitoring Software Repositories}
+\label{sec:monitoring}
 
 Although pointing kiskadee to GNU/Linux distribution repositories may have
 advantages, most distributions do not package every single new software version
@@ -134,6 +136,7 @@ run different static analyzers for different software repositories or GNU/Linux
 distributions.
 
 \section{Static Analyzers}
+\label{sec:analyzers}
 
 The NIST Software Assurance Metrics and Tool Evaluation (SAMATE) project
 provides a list of \textit{source code security
@@ -177,6 +180,7 @@ analysis on the source code and, differently from the other two selected tools,
 the authors do not claim that this tool does not generate false positives.
 
 \section{Common Reporting Language}
+\label{sec:firehose}
 
 %%%
 The problem of having a common reporting language for static analyzers was
@@ -272,8 +276,10 @@ to develop the tools to handle it, like parsers and generators.
 %%% GSoC, new parsers, etc...
 
 \section{API and Web User Interface}
+\label{sec:api}
 
 \section{Related Projects}
+\label{sec:related_projects}
 
 \subsection{mock-with-analysis}
 

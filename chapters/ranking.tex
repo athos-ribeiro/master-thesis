@@ -1,10 +1,12 @@
 \chapter{A Static Analysis Warnings Ranking Model}
+\label{ch:ranking}
 
 % We approach the problem of ranking multiple static analyzer warnings with a
 % supervised learning method. 
 % for that, we need a set of examples...
 
-\section{Data Extraction}\label{sec:data}
+\section{Data Extraction}
+\label{sec:data}
 
 To build a predictive model as discussed, we need to obtain good and sufficient
 data to train it. The first step we take in this direction is choosing both the
@@ -257,7 +259,8 @@ report.
   % quantidade por categoria;
   % media ou gráfico com warnings por arquivo
 
-\section{Arbitrating on Warnings Positiveness}\label{sec:ranking}
+\section{Arbitrating on Warnings Positiveness}
+\label{sec:positiveness}
 
 Given the data collected using the methodology presented in the previous
 section, we now build a prediction model to classify each triggered warning as
