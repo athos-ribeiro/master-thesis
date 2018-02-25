@@ -201,28 +201,26 @@ and credits in the Acknowledgements section, in the begining of this document.
 \label{sec:structure}
 
 The rest of this document begins with a thorough description of the literature
-review performed to situate our work with reference to the
-state of the art regarding source code static analysis usage and warnings
-processing (Chapter~\ref{}). To get readers familiar with source code static analysis
-terminology, Section~\ref{} defines or explains important related concepts. We
+review performed to situate our work with reference to the state of the art
+regarding source code static analysis usage and warnings processing
+(Chapter~\ref{ch:literature}). To get readers familiar with source code static analysis
+terminology, Section~\ref{sub:terminology} defines or explains important related concepts. We
 then have a closer view on the limitations in the quality of current static
 analysis tools reports and on how previous works make good use of source code
-analysis to minimize them (Section~\ref{}). As we will see, this entails
+analysis to minimize them (Section~\ref{sub:related_work}). As we will see, this entails
 significant effort for each single program to be analyzed, highlighting the
-utility of avoiding this step.
-
-%kiskadee
-Next, we introduce the continuous static analysis tool developed during this
-work, provide details on its design, and discuss the reasons behind our
-implementation decisions in Chapter~\ref{}. While this last chapter presents
-our approach used to reduce false negative occurences on static analysis, % it is left to bla bla
-
-% ranking chapter and on
-After that, we present our experience with the approach discussed. In
-Section~\ref{sec:data}, we talk about how we normalized the data obtained from
-the static analysis tools for further processing and how we chose the features
-used to train our ranking model and, in Section~\ref{sec:ranking}, we present
-our approach to process this data and build this model. We finally proceed to
-describe and discuss the experimental validation and obtained results in
-Section~\ref{sec:results}.
-% conclusion missing
+utility of avoiding this step.  In Chapter~\ref{ch:kiskadee}, we introduce the continuous
+static analysis tool developed during this work, provide details on its design,
+and discuss the reasons behind our implementation decisions. While this last
+chapter presents our approach used to reduce false negative occurrences on
+static analysis reports and provide a database of static analysis reports for
+different software versions, which is done by continuosly running multiple
+static analyzers on software repositories, it remains to describe our
+experience with the approach to mitigate false positive occurrences on static
+analysis reports, which is left for Chapter~\ref{ch:ranking}. In Section~\ref{sec:data},
+we talk about how we normalized the data obtained from the static analysis
+tools for further processing and how we chose the features used to train our
+ranking model and, in Section~\ref{sec:positiveness}, we present our approach to
+process this data and build this model. We finally proceed to describe and
+discuss the experimental validation and obtained results in
+Chapter~\ref{ch:results}.
