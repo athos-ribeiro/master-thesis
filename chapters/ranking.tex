@@ -50,42 +50,13 @@ capture false positives).  Juliet also includes a user guide with instructions
 on how to assess and label static analysis tool warnings generated over its
 test cases. We use Juliet version 1.2 to generate our data set.
 
-We ran 3 static analysis tools to generate the data set for our experiments.
-The Criteria to select the tools were straightforward:
-\begin{enumerate}
-  \item The tool must be able to examine C/C++ code for security flaws (e.g., buffer overflows, null pointer dereferences); and
-  \item the tool source code must be released under an open source license.
-\end{enumerate}
-Criterion 1 ensures the tool can analyze a subset of Juliet test cases, whereas
-criterion 2 preserves us from disputes by tool vendors regarding the
-analysis of the results (such as allegations of sub-optimal tool
-calibration or detrimental calculation methodology)\footnote{In fact, if we chose
-to work with
-proprietary tools, we would want to contact the vendors about our experiments
-and request permission before publishing our results.}. Open Source tools also simplify the
-process of retrieving string constructs for tool messages and categories when
-necessary, since we can verify their source code.
-Table~\ref{tab:selected_tools} introduces the tools here employed to generate
-data through Juliet test cases analyses.
-
-  \begin{table}[!htbp]
-    \begin{threeparttable}
-    \begin{center}
-        \begin{tabular}{rcrc}\hline
-          Tool & Target Language & License & Version \\
-        \hline
-          Clang Static Analyzer & C/C++ & NCSA/MIT & 3.9.1\\
-          Cppcheck & C/C++ & GPLv3 & 1.79\\
-          Frama-C$^{*}$ & C & LGPLv2 & 1.14 \\ \hline
-        \end{tabular}
-        \begin{tablenotes}
-          \small
-        \item[*] \footnotesize{Although Frama-C cannot analyze C++ code, it meets criterion~1 by analyzing a substantial subset of Juliet test cases. Frama-C was used with its value analysis plugin activated.}
-        \end{tablenotes}
-        \caption{Selected static analysis tools}\label{tab:selected_tools}
-    \end{center}
-    \end{threeparttable}
-\end{table}
+We ran 3 static analysis tools to generate the data set for our
+experiments. These are the same static analyzers integrated in
+kiskadee, since its their output will compose kiskadee final
+static analysis reports, which we want to rank with our model.
+While the Criteria employed to select the tools are described
+in Section~\ref{sec:analyzers}, the list of selected static
+analyzers is shown in Table~\ref{tab:selected_tools}.
 
 Before examining Juliet with the selected static analysis tools, we prune the
 test suite to prevent analysis of test cases that depend on constructs of

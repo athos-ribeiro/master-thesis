@@ -137,9 +137,6 @@ analyzers to run for that repository. Hence, we can extend \textit{kiskadee} to
 run different static analyzers for different software repositories or GNU/Linux
 distributions.
 
-%%%%%%%%%%%%%%%%%%%%%
-%% STOPPED HERE... %%
-%%%%%%%%%%%%%%%%%%%%%
 \section{Static Analyzers}
 \label{sec:analyzers}
 
@@ -149,10 +146,9 @@ analyzers}\footnote{\url{samate.nist.gov/index.php/Source_Code_Security_Analyzer
 which they define as static analyzers that \textit{examine source code to
 detect and report weaknesses that can lead to security vulnerabilities}.
 
-% arrumar frase para relacioná-la com a sessão de rankeamento,
-% dizer que a ferramenta é extensível e que podemos plugar outros analizadores
 \textit{kiskadee} was run with three static analysis tools to generate the
-warnings data set for our experiments. The Criteria to select the tools were:
+warnings data set for our experiments. Based on SAMATE tools list and
+references, the Criteria to select the tools were:
 \begin{enumerate}
   \item \textbf{The tools must be able to examine C/C++ code for security flaws (e.g., buffer overflows, null pointer dereferences).} Different programming languages have different problems and we do not want to address this variable at the moment. Since software systems are often developed in the C/C++ programming languages and several software flaws are mapped under Common Weakness Enumeration (CWE) for these languages, we chose to work with these languages.
   \item the tool source code must be released under a FLOSS license.
@@ -161,7 +157,10 @@ Criterion~1 ensures the tool can analyze a subset of the test cases in our data
 set, introduced in Section~\ref{sec:ranking}, whereas criterion 2 preserves us
 from disputes by tool vendors regarding the analysis of the results (such as
 allegations of sub-optimal tool calibration or detrimental calculation
-methodology). FLOSS tools also simplify the process of retrieving string
+methodology)\footnote{In fact, if we chose
+to work with
+proprietary tools, we would want to contact the vendors about our experiments
+and request permission before publishing our results.}. FLOSS tools also simplify the process of retrieving string
 constructs for static analyzer warning messages and categories when necessary,
 since we can verify their source code.
 
@@ -184,10 +183,38 @@ Finally, \textit{Clang Static Analyzer} works by performing inter-procedural
 analysis on the source code and, differently from the other two selected tools,
 the authors do not claim that this tool does not generate false positives.
 
+Table~\ref{tab:selected_tools} shows the tools integrated in kiskadee. The same tools were also employed to generate
+our experimental data set, as we discuss in Chapter~\ref{ch:ranking}.
+
+  \begin{table}
+    \begin{threeparttable}
+    \begin{center}
+        \begin{tabular}{rcrc}\hline
+          Tool & Target Language & License & Version \\
+        \hline
+          Clang Static Analyzer & C/C++ & NCSA/MIT & 3.9.1\\
+          Cppcheck & C/C++ & GPLv3 & 1.79\\
+          Frama-C$^{*}$ & C & LGPLv2 & 1.14 \\ \hline
+        \end{tabular}
+        \begin{tablenotes}
+          \small
+        \item[*] \footnotesize{Although Frama-C cannot analyze C++ code, it meets criterion~1 by analyzing a substantial subset of Juliet test cases. Frama-C was used with its value analysis plugin activated.}
+        \end{tablenotes}
+        \caption{Selected static analysis tools}\label{tab:selected_tools}
+    \end{center}
+    \end{threeparttable}
+\end{table}
+
+kiskadee was designed in an extensible fashion. Whenever the desire to
+integrate new static analyzers to it arise, the effort needed to do so is
+decoupled from kiskadee source code. Instead, one would just need to extend the
+external common reporting language library used by kiskadee to parse and
+convert the target static analyzer report to the common report. We now, we
+discuss this common reporting language.
+
 \section{Common Reporting Language}
 \label{sec:firehose}
 
-%%%
 The problem of having a common reporting language for static analyzers was
 discussed in a previous work. By applying the Ockham Sound Analysis
 Criteria~\cite{black_sate_2016}, we designed a simplified common bug report
@@ -259,15 +286,14 @@ purposes. Thus, if we were to use the format we developed for the Ockham Criteri
 changes would be needed, both to the format and to the tools provided to work
 with it.
 
-%%%
-FLOSS development communities have been discussing a common static analysis
-report output format as well. The Fedora Project Static Analysis Special Interest Group
+FLOSS development communities have also been discussing a common static analysis
+report output format. The Fedora Project Static Analysis Special Interest Group
 \cite{fedora:static:sig} designed a tool to run static analyzers during the
 package build process \cite{fedora:mockwithanalysis}.  Although the tool itself
 is in its early development stages and not ready for usage in production, the
-developers discussed \cite{fedora:mlist} a common report format for the static
-analyzers in their mailing lists. After a few iterations, with Debian Project
-developers collaboration, they created \textit{Firehose}, a complete definition
+developers discussed a common report format for the static
+analyzers in their mailing lists~\cite{fedora:mlist}. After a few iterations, with Debian Project
+developers collaboration, they created and evolved \textit{Firehose}, a complete definition
 of a common warnings report format for static analyzers and a set of tools to
 generate, parse, and verify this format.
 \textit{Firehose} addresses the issues previously discussed, as analyzer name
@@ -278,6 +304,7 @@ We use \textit{Firehose} as kiskadee's
 common warning report format, eliminating the need to design a new format and
 to develop the tools to handle it, like parsers and generators.
 
+%%% HERE
 %%% GSoC, new parsers, etc...
 
 \section{API and Web User Interface}
