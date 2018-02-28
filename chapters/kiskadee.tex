@@ -106,9 +106,6 @@ The next sections describe important details related to
 kiskadee features. Then, in Section~\ref{sec:implementation}, we discuss
 kiskadee's architecture and implementation details. We finish the chapter by discussing software projects related to kiskadee in Section~\ref{sec:related_projects}.
 
-%%%%%%%%%%%%%%%%%%%%%
-%% STOPPED HERE... %%
-%%%%%%%%%%%%%%%%%%%%%
 \section{Monitoring Software Repositories}
 \label{sec:monitoring}
 
@@ -121,7 +118,7 @@ the effort of packaging every single release pointless to the distribution
 packager.
 
 Fedora Project uses an external system to monitor the software projects they
-distribute. Anitya \cite{anitya} maps upstream projects to distribution package
+distribute. Anitya~\cite{anitya} maps upstream projects to distribution package
 names. Whenever a new version of an upstream project is released, Anitya
 publishes the new release in a Fedora infrastructure publish-subscribe system
 where other systems in the distribution infrastructure can handle it.  New
@@ -140,6 +137,9 @@ analyzers to run for that repository. Hence, we can extend \textit{kiskadee} to
 run different static analyzers for different software repositories or GNU/Linux
 distributions.
 
+%%%%%%%%%%%%%%%%%%%%%
+%% STOPPED HERE... %%
+%%%%%%%%%%%%%%%%%%%%%
 \section{Static Analyzers}
 \label{sec:analyzers}
 
