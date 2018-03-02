@@ -187,6 +187,7 @@ Table~\ref{tab:selected_tools} shows the tools integrated in kiskadee. The same 
 our experimental data set, as we discuss in Chapter~\ref{ch:ranking}.
 
   \begin{table}
+    \centering
     \begin{threeparttable}
     \begin{center}
         \begin{tabular}{rcrc}\hline
@@ -241,7 +242,8 @@ information from the format were developed and are available, no formal
 definition of the format was described, since this format was used for this
 specific version of the criteria.
 
-\begin{lstlisting}[caption={Ockham Criteria XML bug report example},label={lst:ockham_xml}]
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[frame=none, caption={Ockham Criteria XML bug report example},label={lst:ockham_xml}]
 <?xml version='1.0' encoding='utf-8'?>
 <sites>
   <file name="CWE369_Divide_by_Zero__int_fgets_divide_51b.c">
@@ -257,6 +259,7 @@ specific version of the criteria.
   </file>
 </sites>
 \end{lstlisting}
+\end{minipage}
 
 To compare the findings of the evaluated tools with actual data from the test suite,
 tool reports were parsed and converted to a very simple comma-separated values
@@ -264,19 +267,21 @@ tool reports were parsed and converted to a very simple comma-separated values
 related to a CWE}. An example of this CSV format, extracted from the Ockham
 Criteria results, is shown in Listing~\ref{lst:ockham_csv}.
 
+\begin{minipage}{\linewidth}
 \lstset{language=Python}
-\begin{lstlisting}[caption={Ockham Criteria CSV bug report example},label={lst:ockham_csv}]
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_01.c, 43, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_01.c, 62, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_02.c, 45, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_02.c, 73, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_02.c, 92, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_03.c, 45, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_03.c, 73, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_03.c, 92, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_04.c, 51, divByZero
-CWE121_Stack_Based_Buffer_Overflow__char_type_overrun_memcpy_04.c, 79, divByZero
+\begin{lstlisting}[frame=none, caption={Ockham Criteria CSV bug report example},label={lst:ockham_csv}]
+CWE121__char_type_overrun_memcpy_01.c, 43, divByZero
+CWE121__char_type_overrun_memcpy_01.c, 62, divByZero
+CWE121__char_type_overrun_memcpy_02.c, 45, divByZero
+CWE121__char_type_overrun_memcpy_02.c, 73, divByZero
+CWE121__char_type_overrun_memcpy_02.c, 92, divByZero
+CWE121__char_type_overrun_memcpy_03.c, 45, divByZero
+CWE121__char_type_overrun_memcpy_03.c, 73, divByZero
+CWE121__char_type_overrun_memcpy_03.c, 92, divByZero
+CWE121__char_type_overrun_memcpy_04.c, 51, divByZero
+CWE121__char_type_overrun_memcpy_04.c, 79, divByZero
 \end{lstlisting}
+\end{minipage}
 
 To rank warnings, we would like to have information on analyzed software
 versions, which static analyzer performed the analysis, the version of the
@@ -304,26 +309,116 @@ We use \textit{Firehose} as kiskadee's
 common warning report format, eliminating the need to design a new format and
 to develop the tools to handle it, like parsers and generators.
 
-%%% HERE
-%%% GSoC, new parsers, etc...
+Moreover, as previously  mentioned in Section~\ref{sec:analyzers}, if we want
+to integrate new static analyzers to kiskadee, this must be performed in
+Firehose, by implementing a new parser for the target static analyzer. During
+the Google Summer of Code
+2017\footnote{\url{https://summerofcode.withgoogle.com/}} program, we extended
+Firehose to parse both the Frama-C static analyzer, which we use for our
+experiments described in Chapter~\ref{ch:ranking}, and the Flawfinder static
+analyzer.
 
 \section{API and Web User Interface}
 \label{sec:api}
 
-\section{kiskadee Architecture and Implementation Details}
+To provide access to its database to external applications, kiskadee exposes a
+REST API. The API responds to the following endpoints:
+
+\begin{itemize}
+  \item \emph{/fetchers}
+  \item \emph{/packages}
+  \item \emph{/analysis/<package\_name>/<package\_version>}
+  \item \emph{/analysis/<package\_name>/<package\_version>/<analysis\_id>/results}
+  \item \emph{/analysis/<package\_name>/<package\_version>/<analysis\_id>/reports}
+\end{itemize}
+
+\section{Architecture and Implementation Details}
 \label{sec:implementation}
+
+kiskadee's architecture aims to decouple source code analysis from software
+packages release monitoring. To accomplish that, we have separated the modules
+responsible to fetch package versions and source code, and the module
+responsible to run the analyses. The communication between them is done through
+queues, as shown in Figure~\ref{fig:kiskadee:overview} by \textbf{A},
+\textbf{B}, and \textbf{C}.
+
+The packages\_queue (\textbf{A}) is used by the fetchers to enqueue the
+packages that should be analyzed. This queue is consumed by the monitor module,
+to check if the enqueued package was already analyzed. The second queue, named
+analysis\_queue (\textbf{B}), is consumed by the runner module to receive
+packages that must be analyzed, which are enqueued by the monitor module. If a
+dequeued package does not have an analysis instance in the database, the
+monitor module enqueues it for analysis in the analysis\_queue.  When an
+analysis is performed, the runner module sends the analysis report to the
+monitor module, by enqueing it in the results\_queue (\textbf{C}). Some package
+metadata and the analysis are then saved in the database by the monitor module.
+
+The \emph{fetchers} module implements a system to easly define targets to be
+monitored by kiskadee. A target is a software repository monitored for new
+packages. Whenever kiskadee is loaded, it loads all fetchers installed in a
+specific path. From that moment on, all the targets defined by the loaded
+fetchers are monitored by kiskadee.
+
+A new fetcher must inherit from kiskadee's Fetcher and implement some required
+abstract methods so kiskadee knows how to
+\begin{itemize}
+  \item monitor the target;
+  \item download source code; and
+  \item compare target's software versions.
+\end{itemize}
+
+Listing~\ref{lst:fetcher} shows a complete example of a custom kiskadee fetcher implementation.
+
+\begin{minipage}{\linewidth}
+\lstinputlisting[frame=none, caption=Example kiskadee fetcher, style=mypython, label={lst:fetcher}]{listings/example.py}
+\end{minipage}
+
+A few different software projects overlap with certain kiskadee features. We
+finish this chapter by listing and discussing some of these software projects
+in the next section.
 
 \section{Related Projects}
 \label{sec:related_projects}
 
+\subsection{Debile}
+
+Debian Project has been developing Debile, a reduced Debian build system to aid
+developers to build packages or run custom tools against source or binary
+packages.  Debile can run multiple static analyzers in Debian repository
+packages and return the reports in the \textit{firehose}
+format (\url{https://github.com/opencollab/debile}). While the tool is
+still in early development (not in production), kiskadee design was inspired in
+Debile, with some simplifications and abstractions, allowing us to fetch source
+code from different software repositories. While Debile aims to check the
+quality of Debian packages, kiskadee focus on a broader scope, being
+distribution agnostic and fetching software packages from the upstream projects.
+
 \subsection{mock-with-analysis}
 
-\subsection{Debile}
-Debian Project has been developing a tool to run multiple static analyzers in
-Debian repositories and return the reports in the \textit{firehose}
-format\footnote{\url{debile.debian.net}}.  The tool is still in early development
-(not in production), but we intend to use part of it with \textit{kiskadee} to
-avoid replicating their work. Some development on it to provide options to
+Similar to Debile, mock-with-analysis
+(\url{https://github.com/fedora-static-analysis/mock-with-analysis}) is a
+command line tool to build RPM\footnote{\url{rpm.org}} packages in a clean
+chroot and run multiple static analyzers on the source code of the package
+being built. This tool is based on
+mock~\footnote{\url{https://github.com/rpm-software-management/mock}}, a tool
+used by Fedora developers to build RPM packages in a clean environment with a
+minimum set of packages pre-installed. While mock-with-analysis is just a
+prototype at the moment and is not fit for general usage, it inspired the
+development of Firehose, which is an important component for kiskadee.
 
 \subsection{Coala}
+
+Coala (\url{https://coala.io}) provides a single interface to run multiple
+static analyzers in software packages written in multiple programming languages
+and providing a report in a common reporting language defined by the Coala
+project. It is not restrained to secutity oriented static analysis, it also run
+linters and other analyzers to check code quality and style.
+
+While all the projects mentioned above are interesting projects, and Coala
+being a production-level open source software sponsored by large companies,
+none of them proposes an approach to reduce the number of false positive
+warnings generated by the analysis, which increases when running multiple
+static analyzers in a software package. In the following chapter, we present
+our approach to handle these false positives by training a classification model
+and ranking the warnings based on classification probabilities.
 
