@@ -1,9 +1,11 @@
 \chapter{A Static Analysis Warnings Ranking Model}
 \label{ch:ranking}
 
-% We approach the problem of ranking multiple static analyzer warnings with a
-% supervised learning method. 
-% for that, we need a set of examples...
+We approach the problem of ranking multiple static analyzer warnings with a
+supervised learning method to arbitrate about the warnings positiveness. To
+learn from obsserved examples, we need to obtain and process a dataset of static
+analysis warnings labeled as true or false positive. We describe the steps taken
+in this direction in the next section.
 
 \section{Data Extraction}
 \label{sec:data}
@@ -15,8 +17,8 @@ adequately process the output of multiple tools, we need to normalize the
 information provided by them. We approach this in two levels: at the first
 level, we translate alarms from the different tools into a unified format and
 apply labels to each warning to distinguish them into either true positives or
-false positives. At the second level, we associate each warning to specific features
-that will compose a data set to train our prediction model.
+false positives. At the second level, we associate each warning to specific
+features that will compose a data set to train our prediction model.
 
 \subsection{Choosing Data Sources}
 
@@ -42,7 +44,9 @@ the location and other details of the injected flaws in synthetic test cases
 are previously known, facilitating studies and freeing researchers from
 performing expensive searches along their data sets.
 
-Juliet~\cite{juliet} is a synthetic C/C++ test suite with 61,387 test cases
+Juliet~\cite{juliet} is a synthetic C/C++ test suite created by the United
+States National Security Agency (NSA) and distributed by the National Institute
+of Standards and Technology (NIST) under the public domain. It is composed of 61,387 test cases
 covering 118 different software flaw categories. Each test case is a code
 section with an instance of a specific flaw (to capture true positives) and an
 additional section with a correct, fixed instance of that previous flawed section (to
@@ -107,18 +111,18 @@ automated.
     \end{center}
 \end{table}
 
-% If we have any space left, we can include information about firehose (unified report format)
 Seeing that each tool has its own report format, we reduce the effort of
-parsing reports by converting them all to a unified report (UR) in a common format.
-By matching each possible warning produced by the static analyzers with
-the corresponding flaw categories covered by Juliet, we can use the list L to
-produce labels for each warning in UR.
+parsing reports by converting them all to a unified report (UR) in a common
+format. Here, we use the Firehose format, introduced in
+Chapter~\ref{ch:kiskadee}.  By matching each possible warning produced by the
+static analyzers with the corresponding flaw categories covered by Juliet, we
+can use the list L to produce labels for each warning in UR.
 
 The set of labeled warnings can finally be examined to have a training set
-extracted from it, as discussed in the next subsection.
+extracted from it, as discussed in the next section.
 Table~\ref{tab:labeled_warnings} summarizes the findings of the static
 analyzers on the test cases, including the number of true and false positives
-generated (TP and FP, respectively), the false positive rates and the precision
+generated (TP and FP, respectively), the false positive rates, and the precision
 for each tool and for UR, the aggregated reports composed of the warnings of
 all tools.
 
@@ -148,9 +152,9 @@ all tools.
 %triggered by the same software flaw, even if it is by using simple heuristics,
 %like the location of each tool finding, which could also be used as a feature.
 
-We extract the features used to train our classifier from the set of labeled
+We obtain the features used to train our classifier from the set of labeled
 warnings. Here, a feature is any characteristic that can be attributed to a
-warning in the data set.  To select relevant features for false and positive
+warning in the data set. To select relevant features for false and positive
 alarm classification, we refer to previous studies that also rely on
 characteristics extracted from alarms and source code to classify alarms
 \cite{ruthruff_predicting_2008, kremenek2004correlation, heckman2009model,
@@ -164,14 +168,15 @@ produce a more generic model applicable to different contexts without the
 need to perform the expensive training step for each project one may want to
 analyze.
 
-Our set of features is extracted by processing the aggregated report of labeled
+We extract our set of features by processing the aggregated report of labeled
 warnings.
-While the name of the tool that triggered a warning, the programming
-language analyzed, and the severity of the warning can be inferred by looking
-at a single warning at a time, other features require processing the whole
+While we can infer the name of the tool that triggered a warning, the programming
+language analyzed, and the severity of the warning by looking
+at a single warning at a time,
+other features require processing the whole
 aggregated report to be extracted. Namely, these are (1) the number of times the same
 location was pointed as flawed in the report, (2) the number of warnings triggered
-around the location of a given warning (e.g., warnings for locations at least 3
+around the location of a given warning (e.g., warnings for locations at most 3
 lines away from the current warning), (3) the category of the software flaw
 suggested by the warning, (4) which other static analyzers generated warnings for
 the same location, and (5) the number of warnings generated for the same file the
@@ -256,7 +261,8 @@ classifiers to build stronger classifiers with lower errors~\cite{aima}. One
 widely used ensemble learning method is boosting~\cite{aima}, whose main idea is to run a
 weak learning algorithm several times in different distributions of the
 training set to generate various weak classifiers to be combined into a
-stronger one. For this study, we chose to use the AdaBoost algorithm~\cite{freund1999short}. % last sentence needs improvement
+stronger one. For this study, we chose to use the AdaBoost algorithm~\cite{freund1999short}, a more general version of the original
+boosting algorithm~\cite{polikar2006ensemble}.
 
 AdaBoost works by calling a base learner algorithm (\textbf{h}) repeatedly
 (\textbf{T} times) while maintaining a set of weights over the training data
@@ -281,14 +287,14 @@ The AdaBoost algorithm works with any given base learner. We use a decision
 tree learning algorithm as our base learner because we have both categorical
 and non-categorical features in our data set, as shown in
 Section~\ref{sec:data}, and decision trees can work with both, without the need
-to pre-process the data set. Furthermore, as shown in the literature, decision trees have been shown to
+to pre-process the data set. Furthermore, as shown in the literature, decision trees 
 perform well with AdaBoost~\cite{drucker1996boosting}.
 
 We divide our data set (the list of labeled features obtained in
 Section~\ref{sec:data}) into a training set and a test set. The training set is
 built by randomly selecting 75\% of the examples labeled as true positives and
 75\% of the examples labeled as false positives from the features data set. We
-then proceed to train our predictive model using a 10-fold cross-validation
+then proceed to train our predictive model using 10-fold cross-validation
 with the training set. This cross-validation consists in dividing a data set
 into 10 groups: 9 groups are used to train the model while the remaining group is
 used to test it. The training step is repeated 10 times, switching the group
@@ -302,15 +308,13 @@ test set.
 \subsection{Ranking Static Analysis Warnings}
 \label{subsec:ranking}
 
-Even though techniques to use AdaBoost on ranking problems are available in
-literature~\cite{freund2003efficient}, we take a simpler approach and rank
-warnings based on AdaBoost classification probabilities. We reorder the
-warnings in a list according to the probability given by our classification
-model of the warning being a true positive, where warnings with higher
-probabilities are ranked in the top of the list and warnings with lower
+We use the model trained as described in this chapter to rank the warnings in a
+static analysis report based on the model classification probabilities. We
+reorder the warnings in a list according to the probability given by our
+classification model of the warning being a true positive, where warnings with
+higher probabilities are ranked in the top of the list and warnings with lower
 probabilities of being true positives are arranged in the bottom of the list.
-This way, a programmer inspecting the ranked static analysis report may
-inspect only warnings in the list up to a given threshold, assuming a certain risk of
-missing true positives. Alternatively, he/she may stop inspecting warnings when
-false positives start to abound.
-
+This way, a programmer inspecting the ranked static analysis report may examine
+only the top warnings in the list up to a given threshold, assuming a certain
+risk of missing true positives. Alternatively, he/she may stop inspecting
+warnings when false positives start to abound.
