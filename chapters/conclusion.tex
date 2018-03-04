@@ -89,3 +89,29 @@ apply the technique that requires less effort to identify the warnings introduce
 in a specific version of a package.
 
 % etado da análise estática com software livre = ruim
+
+%%%%%%
+% start: conclusao do paper do kiskadee
+%%%%%%
+
+Different from related works, kiskadee's ranking approach does not use
+features based on the analyzed project intrinsic properties for model training,
+namely, source code change history and code metrics. Consequently, by
+smoothly decreasing the classification accuracy, the model obtained can be used
+successfully with any given software project. This is a compelling trade-off
+to enable kiskadee to analyze and rank any project given as input, allowing the
+continuous monitoring and analysis of different software repositories, such as
+the ones provided by GNU/Linux distributions.
+
+kiskadee can be used to reduce the cost of inspecting false alarms by setting a
+minimum value for the rate in which real flaws are found per inspection in a
+ranked list (i.e., a confidence level). When the rate of real flaws per
+inspections drops below that level, one could stop the inspection for that
+warning list. Interesting future works include studying confidence levels and
+the trade-off between loss of information and the cost of inspecting a larger
+number of false alarms.
+
+kiskadee is licensed under the GNU Affero General Public License. Its
+development repository, the complete project documentation, and the data set
+used for the ranking experiments here presented are available at
+\url{pagure.io/kiskadee}.
