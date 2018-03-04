@@ -22,7 +22,7 @@ The final classifier was trained with 100 AdaBoost iterations ($T = 100$),
 producing 100 decision trees to compose the predictive model, reaching $0.8$
 mean accuracy (the proportion of correct classifications in relation to the total input)
 in the cross-validation during training. This value for $T$ was
-selected based on the performance of the mean accuracy of the model during training for a 10-fold
+selected based on the performance of the mean accuracy of the model during training for 10-fold
 cross-validation, as can be seen in Table~\ref{tab:mean_acc}.
 
   \begin{table}
@@ -156,13 +156,16 @@ location.
 
 As mentioned before, we do not need to limit ourselves to a direct binary
 classification; it is also possible to use the trained predictive model to rank
-warnings according to their expected relevance. To evaluate our ranking
+warnings according to their expected relevance. Next, we present and discuss the results obtained with
+our ranking approach and compare it with a random ranking algorithm.
+
+To evaluate our ranking
 performance over the test set, we refer to the methodology presented by
-Kremenek et al.~\cite{kremenek2004correlation}:
+Kremenek et al.~\cite{kremenek2004correlation}, which we describe below.
 
 \begin{enumerate}
 
-\item we define $S(R)$ to be the
+\item We define $S(R)$ to be the
 sum of $FP_j$, the cumulative number of false positive warnings found before
 reaching the $j_{th}$ true positive warning when navigating a ranked list
 (starting from the first entry) ordered by a ranking algorithm $R$.
@@ -226,8 +229,8 @@ over the test set (see Eq.~\ref{eq:avgfp}).
   \caption{Number of actual flaws hit upon top-down inspection of a ranked list for different ranking approaches. \textbf{kiskadee} refers to the predictive model proposed in this study}\label{fig:inspections}
 \end{figure}
 
-The median model performance over random was $5.241$, which indicates that, on
-average, one hits $5.241$ times more false positives with a random ranked
+The median model performance over random was $5.2$, which indicates that, on
+average, one hits $5.2$ times more false positives before each true positive with a random ranked
 warning list than one would if using the proposed ranking.
 Figure~\ref{fig:inspections} shows the number of real flaws found in a ranked
 list per inspected entries (warnings) for different ranking models applied to
@@ -242,11 +245,11 @@ using the classifier obtained during our experiments, as described above.
 \end{itemize}
 
 As Figure~\ref{fig:inspections} shows, our model outperforms the random ranking
-algorithm by presenting all software flaws in the test set before 4000
+algorithm by presenting all software flaws in the test set after 3990
 inspections, while the random ranking algorithm presents software flaws in a
 linear relation with the number of inspections, where the last few real
 software flaws in the test set are only presented in the end of the list, after
-6000 inspections.
+6486 inspections.
 
 
 \section{Discussion and Limitations}
