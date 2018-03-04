@@ -2,17 +2,10 @@
 
 ## TODO
 
-- Adjust with kiskadee's documentation
 - Add kiskadee screenshots
 - Translate abstract to pr-BR
-- Finish Structured review section
-- Improve XML listings
-
-### Fabio
-
-- Conclusions and future work
-  - nao é um resumo
-  - não repetir abstract
+- ROC (abbrev.)
+- AdaBoost algorithm
 
 ## Questions
 
