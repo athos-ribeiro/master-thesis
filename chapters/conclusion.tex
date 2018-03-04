@@ -98,14 +98,19 @@ format design. Validating it or designing a new format validated by static
 analysis tool developers, practitioners and researchers would be a valuable
 contribution for the field.
 
-% here
-
-Finally,
-% estado da análise estática com software livre = ruim
-
+Finally, during our experiments we could observe the poor performance of some
+open source static analyzers. NIST have evaluated several source code static
+analyzers, both proprietary and open source, and published their results
+through the Static Analysis Tool Exposition (SATE) workshop
+reports~\cite{okun2013report}. Their results present much lower false positive
+rates than the ones we found during our experiments. Although SATE reports do
+not provide the names of the evaluated tools when reporting data such as false
+positive rates, we believe that the proprietary tools outperform FLOSS tools on
+the field. Studying the static analysis techniques used by FLOSS tools and
+comparing them to the ones used by proprietary tools (when feasible) and to the
+state of the art is left as a last topic for future work.
 
 kiskadee is licensed under the GNU Affero General Public License. Its
 development repository, the complete project documentation, and the data set
 used for the ranking experiments here presented are available at
 \url{pagure.io/kiskadee}.
-

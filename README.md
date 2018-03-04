@@ -4,8 +4,6 @@
 
 - Add kiskadee screenshots
 - Translate abstract to pr-BR
-- ROC (abbrev.)
-- AdaBoost algorithm
 
 ## Questions
 
