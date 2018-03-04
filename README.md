@@ -4,6 +4,8 @@
 
 - Add kiskadee screenshots
 - Translate abstract to pr-BR
+- Grammarly review
+- PRMM review
 
 ## Questions
 
