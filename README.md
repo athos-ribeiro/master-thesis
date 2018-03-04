@@ -3,9 +3,11 @@
 ## TODO
 
 - Add kiskadee screenshots
-- Translate abstract to pr-BR
+- Include adaboost algorithm in ranking chapter
 - Grammarly review
+- Check pt-BR abstract grammar
 - PRMM review
+- Fix missing index issue
 
 ## Questions
 

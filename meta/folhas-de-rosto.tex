@@ -96,12 +96,44 @@ Finally, we would also like to thank Nelson Lago for all his ideas and reviews.
 % automaticamente a referência para o próprio documento, conforme as normas
 % sugeridas da USP
 \begin{resumo}{port}
-  \textbf{Tradução a ser realizada após revisão do abstract em inglês}
-%Elemento obrigatório, constituído de uma sequência de frases concisas e
-%objetivas, em forma de texto.  Deve apresentar os objetivos, métodos empregados,
-%resultados e conclusões.  O resumo deve ser redigido em parágrafo único, conter
-%no máximo 500 palavras e ser seguido dos termos representativos do conteúdo do
-%trabalho (palavras-chave). Deve ser precedido da referência do documento.
+
+Embora exista grande variedade de analizadores estáticos de código-fonte
+disponíveis no mercado, tanto com licenças proprietárias, quanto com licenças
+livres, cada uma destas ferramentas mostra melhor desempenho em um pequeno
+conjunto de problemas distinto, dificultando a escolha de uma ferramenta de
+análise estática para analizar um programa. A combinação das análises de
+diferentes ferramentas pode reduzir o número de falsos negativos, mas gera um
+aumento no número de falsos positivos (que já é alto para muitas dessas
+ferramentas). Uma solução interessante é filtrar estes resultados para
+identificar os problemas com menores probabilidades de serem falsos
+positivos.
+Este trabalho apresenta \textit{kiskadee}, um sistema para promover o uso da
+análise estática de código fonte durante o ciclo de desenvilvimento de
+software provendo relatórios de anáise estática ranqueados. Primeiro,
+\textit{kiskadee} roda diversos analizadores estáticos no código-fonte. Em seguida,
+utilizando um modelo de classificação, os potenciais bugs detectados pelos
+analizadores estáticos são ranqueados conforme sua importância, onde defeitos
+críticos são colocados no topo de uma lista, e potenciais falsos positivos,
+ao fim da mesma lista.
+Para treinar o modelo de classificação do \textit{kiskadee}, nós realizamos uma
+pós-análise nos relatórios gerados por três analizadores estáticos ao
+analizarem casos de teste sintéticos disponibilizados pelo \textit{National
+Institute of Standards and Technology} (NIST) dos Estados Unidos. Para tornar
+a técnica apresentada o mais genérica possível, limitamos nossos dados às
+informações contidas nos relatórios de análise estática das três ferramentas,
+não utilizando outras informações, como históricos de mudança ou métricas
+extraídas do código-fonte dos programas inspecionados. as características
+extraídas destes relatórios foram utilizadas para treinar um conjunto de
+árvores de decisão utilizando o algorítmo AdaBoost para gerar um
+classificador mais forte, atingindo uma acurácia de classificação de 0.8 (a
+taxa de falsos positivos das ferramentas utilizadas foi de 0.61, quando
+combinadas). Finalmente, nós utilizamos este classificador para ranquear os
+alarmes dos analizadores estáticos nos baseando na probabilidade de um dado
+alarme ser de fato um bug no código-fonte. Nossos resultados experimentais
+mostram que, em média, quando inspecionando alarmes ranqueados pelo \textit{kiskadee},
+encontram-se $5.2$ vezes menos falsos positivos antes de se encontrar cada bug
+quando a mesma inspeção é realizada para uma lista ordenada e forma aleatória.
+
 \end{resumo}
 
 % O resumo é obrigatório, em português e inglês. Este comando também gera
@@ -117,14 +149,12 @@ corresponding increase in the number of false positives (which is
 already high for many tools). An interesting solution, then, is to
 filter these results to identify the issues least likely to be false
 positives.
-
 This work presents \textit{kiskadee}, a system to support the usage of static
 analysis during software development by providing carefully ranked static
 analysis reports.  First, it runs multiple static analyzers on the source
 code. Then, using a classification model, the potential bugs detected by the
 static analyzers are ranked based on their importance, with critical flaws
 ranked first, and potential false positives ranked last.
-
 To train kiskadee's classification model, we post-analyze the reports generated
 by three tools on synthetic test cases provided by the US National Institute
 of Standards and Technology. In order to make our technique as general as
