@@ -20,10 +20,10 @@ three search expressions were defined for a first paper selection phase. Since
 we are interested in literature related to source code static analysis and  bug
 classification to mitigate false positive occurrences, papers containing either
 \textit{static analysis}, \textit{false positive} or \textit{bug
-classification} were marked as \textbf{matching papers} (MP).
+classification} were labeled as \textbf{matching papers} (MP).
 
-Then, three categories of interest were defined for a second paper selection
-phase. The categories were defined based on the topics related to our research
+Then, we defined three categories of interest for a second paper selection
+phase. We defined the categories based on the topics related to our research
 goal, which, as described in Chapter \ref{cap:introduction}, involves running
 multiple static analyzers in different revisions of software to prioritize bugs
 and reduce false alarms. The categories defined were:
@@ -34,15 +34,15 @@ and reduce false alarms. The categories defined were:
 \item False alarms in static analysis
 \end{itemize}
 
-If a bibliographic reference in any of the papers marked as \textbf{matching
+If a bibliographic reference in any of the papers labeled as \textbf{matching
 paper} had a title suggesting that the paper could fit into any of the
-categories above, it was marked as a \textbf{matching paper bibliographic
-reference} (MPBR). This was done to select important work in the field,
+categories above, it was labeled as a \textbf{matching paper bibliographic
+reference} (MPBR). This inclusion of references was done to select outstanding work in the field,
 after noticing common bibliographic references in a significant number of
-papers marked as \textbf{matching papers}.
+papers labeled as \textbf{matching papers}.
 
-The abstract and conclusion sections in the papers marked as either
-\textbf{matching papers} or \textbf{matching paper bibliographic references} were read and the
+The abstract and conclusion sections in the papers labeled as either
+\textbf{matching papers} or \textbf{matching paper bibliographic references} were read, and the
 papers not related to any of the defined categories were discarded.
 
 Finally, all the 36 papers not discarded were selected for this review, as
@@ -59,7 +59,7 @@ Furthermore, other papers, like the ones recommended by the US National
 Institute of Standards and Technology (NIST) Software Assurance Metrics And
 Tool Evaluation (SAMATE) project
 \footnote{\url{samate.nist.gov/index.php/Bibliography.html}} were reviewed as
-well (they were not included in the structured review numbers).
+well ( we did not include them in the structured review numbers).
 Appendix\ref{apx:literature} presents a comprehensive list of the papers
 reviewed through the methodology here presented.
 
@@ -70,8 +70,8 @@ Evans~\cite{evans_improving_2002} states that although security vulnerabilities
 are well understood, it is not a common practice to include techniques to detect
 or avoid them in the development processes and suggests that instead of solely
 relying on programmers, tools to prevent and detect software vulnerabilities
-should be built and integrated in software development cycles. It is also
-known that static analysis helps programmers detect software vulnerabilities
+should be built and integrated into software development cycles. It is also
+known that static analysis helps programmers identify software vulnerabilities
 before they reach production~\cite{evans_improving_2002} in a cheaper way than
 solely conducting manual inspections~\cite{johnson_why_2013}, thus our interest
 in static analyzers.
@@ -82,7 +82,7 @@ kim_which_2007} or some level of statistical analysis~\cite{muske2013review,
 boogerd2006prioritizing, kremenek2003z, ruthruff_predicting_2008}. The
 remainder of this section discusses related work among the reviewed papers
 selected during the structured literature review. First, we define important
-terminology that will be used throughout this research. Then, we discuss works
+terminology that we will use throughout this research. Then, we discuss works
 related to static analysis, reduction of false positives in static analysis
 reports, and static analysis warnings ranking or classification.
 
@@ -96,11 +96,11 @@ and that the software functions in the intended
 manner}~\cite{instruction20034009}. The National Aeronautics and Space
 Administration (NASA) defines software assurance as \textit{the planned and
 systematic set of activities that ensure that software life cycle processes and
-products conforms to requirements, standards and procedures}, which includes
+products conform to requirements, standards, and procedures}, which includes
 the disciplines of software safety and software verification and
 validation~\cite{nasastd8739}. Both these definitions are adopted by the SAMATE
-project. We understand that static analysis is a useful to aid software safety
-and therefore is stringly related to software assurance.
+project. We understand that static analysis is useful to aid software safety
+and therefore is strongly related to software assurance.
 
 In this research, the same terminology used by
 SAMATE~\cite{black_counting_2011} will be used, in the sense that a software
@@ -108,7 +108,7 @@ SAMATE~\cite{black_counting_2011} will be used, in the sense that a software
 design, implementation, or operation that could be triggered, resulting in a
 security failure. A vulnerability is the result of one or more
 \textit{weaknesses} in software requirements, design, implementation, or
-operation. This also means that a single weakness may or may not result in a
+operation. This definition also means that a single weakness may or may not result in a
 vulnerability, depending on the software's usage and execution. Whenever we use
 \textit{bugs} or \textit{flaws}, we mean weaknesses, and we will usually refer
 to them as flaws, as in SAMATE's SATE V Ockham Sound Analysis Criteria
@@ -117,9 +117,9 @@ analysis~\cite{black_sate_2016}.
 MITRE Corporation\footnote{\url{mitre.org}} maintains the \textit{Common Weakness
 Enumeration}~\cite{cwe_page} (CWE), a community-developed dictionary of
 software weaknesses types with the support of several organizations, such as Apple,
-HP, IBM and Microsoft. The CWE entries include, among other information, name
+HP, IBM, and Microsoft. The CWE entries include, among other information, name
 and description of the weakness type, behavior of the weakness, description and
-consequences of the weakness exploit and potential mitigation. Examples of
+consequences of the weakness exploit, and potential mitigation. Examples of
 software weaknesses registered as CWEs are buffer overflows, divisions by zero,
 and NULL pointer dereferences. Whenever possible, we will try to describe
 specific flaws matching them with CWEs. MITRE also maintains a dictionary for
@@ -157,7 +157,7 @@ warnings by the time of their study. Z-ranking~\cite{kremenek2003z} is a
 technique to rank warnings using the frequency counts of true and false
 positives. It was validated against random ranking algorithms. The
 authors of the Z-ranking technique emphasize that a classification system
-cannot be perfect, since static analysis cannot be perfect itself.
+cannot be perfect since static analysis cannot be perfect itself.
 We also use a random ranking algorithm to assess our warnings ranking approach.
 
 Later, Muske~\cite{muske2013review} pointed out the difficulties in reviewing a high
@@ -179,18 +179,18 @@ from the Z-ranking approach, the authors did run some static analysis in the
 code just to extract factors from it. The present study proposes a method to
 rank warnings based only on the information provided by the analyses.
 
-In his work, Spacco et al.~\cite{spacco_tracking_2006} implements a technique
+In his work, Spacco et al.~\cite{spacco_tracking_2006} implement a technique
 to track static analyzers warnings that correspond to the same flaw across
-different software versions. This would enable the assembly of tool report
+different software versions. This technique would enable the assembly of tool report
 deltas, helping developers to focus only on new flaws. Since false positives
 are not usually removed from one software version to another, this approach
 could help to identify them. By implementing similar techniques to track
 warnings across versions in our continuous static analysis tool, we could to
 present static analysis reports containing only the warnings introduced in
 specific software versions, diminishing the efforts of analyzing tool reports.
-This might be useful to reduce the number of false positives shown to software
-developers, since false positives tend to remain across different versions of a
-software. Authors claim that although it seems an easy task, tracking warnings
+These reduced reports might be useful to reduce the number of false positives shown to software
+developers since false positives tend to remain across different versions of a
+software package. Authors claim that although it seems an easy task, tracking warnings
 across software versions is not a trivial problem. Hence, we leave the technique
 implementation for future work, as pointed in Chapter~\ref{ch:conclusion}.
 
@@ -207,7 +207,7 @@ In another work, Penta et al.~\cite{penta_evolution_2008} performed an analysis
 of the evolution of vulnerabilities detected by static analyzers in three
 different open source applications: Samba, Squid, and Horde. The authors
 analyzed how the number of vulnerabilities varies over time. Since they
-analyzed different development versions (not only releases), they could analyze
+analyzed different development versions (not only releases), they could investigate
 aspects of the development process, like bug fixing efforts right before a
 release. The work aimed to understand how long vulnerabilities tend
 to remain in the system by modeling the vulnerabilities decay time with a
@@ -217,7 +217,7 @@ vulnerabilities.
 Our study differs from the ones cited above by assessing static analysis
 warnings only with the information present in the warnings themselves, as
 discussed during the introduction of this paper
-(Chapter~\ref{ch:introduction}).  This makes predicting whether a warning is
+(Chapter~\ref{ch:introduction}).  This difference makes predicting whether a warning is
 an actual bug or a false positive harder, since related works emphasize that
 the most important characteristics to do this are internal to the analyzed
 project. To compensate for this, we use multiple static analyzers to generate
