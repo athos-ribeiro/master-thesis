@@ -55,7 +55,7 @@ clean:
 		$(PDF_NAME)
 
 check:
-	find . -regex '.*\.tex' -exec aspell --add-extra-dicts=./.aspell.pws -t -l en -c {} \;
+	find chapters -regex '.*\.tex' -exec aspell --add-extra-dicts=./.aspell.pws -t -l en -c {} \;
 	find . -regex '.*\.bak' -exec rm -f {} \;
 
 .PHONY: all clean check
