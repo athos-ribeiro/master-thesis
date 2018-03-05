@@ -3,7 +3,7 @@
 
 We approach the problem of ranking multiple static analyzer warnings with a
 supervised learning method to arbitrate about the warnings positiveness. To
-learn from obsserved examples, we need to obtain and process a dataset of static
+learn from observed examples, we need to obtain and process a dataset of static
 analysis warnings labeled as true or false positive. We describe the steps taken
 in this direction in the next section.
 
@@ -48,15 +48,15 @@ Juliet~\cite{juliet} is a synthetic C/C++ test suite created by the United
 States National Security Agency (NSA) and distributed by the National Institute
 of Standards and Technology (NIST) under the public domain. It is composed of 61,387 test cases
 covering 118 different software flaw categories. Each test case is a code
-section with an instance of a specific flaw (to capture true positives) and an
+section with an instance of a specific flaw (to catch true positives) and an
 additional section with a correct, fixed instance of that previous flawed section (to
-capture false positives).  Juliet also includes a user guide with instructions
+catch false positives).  Juliet also includes a user guide with instructions
 on how to assess and label static analysis tool warnings generated over its
 test cases. We use Juliet version 1.2 to generate our data set.
 
-We ran 3 static analysis tools to generate the data set for our
-experiments. These are the same static analyzers integrated in
-kiskadee, since its their output will compose kiskadee final
+We ran three static analysis tools to generate the data set for our
+experiments. Here we use the same static analyzers integrated into
+kiskadee since their output will compose kiskadee final
 static analysis reports, which we want to rank with our model.
 While the Criteria employed to select the tools are described
 in Section~\ref{sec:analyzers}, the list of selected static
@@ -111,7 +111,7 @@ automated.
     \end{center}
 \end{table}
 
-Seeing that each tool has its own report format, we reduce the effort of
+Seeing that each tool has its unique report format, we reduce the effort of
 parsing reports by converting them all to a unified report (UR) in a common
 format. Here, we use the Firehose format, introduced in
 Chapter~\ref{ch:kiskadee}.  By matching each possible warning produced by the
@@ -163,7 +163,7 @@ demonstrate that the tool warning positiveness is highly correlated to code
 locality.  However, we only use the data extracted from the warnings
 themselves, not relying on other information, such as the analyzed project
 change history, size and complexity metrics, or artifact names (e.g., file name,
-function name, package name). By not collecting such information, we are able to
+function name, package name). By not collecting such information, we are can
 produce a more generic model applicable to different contexts without the
 need to perform the expensive training step for each project one may want to
 analyze.
@@ -182,7 +182,7 @@ suggested by the warning, (4) which other static analyzers generated warnings fo
 the same location, and (5) the number of warnings generated for the same file the
 current warning is pointing to.
 
-With the exception of warning category and warning severity, the features
+Except for warning category and warning severity, the features
 mentioned above can be readily obtained for a given warning by analyzing the
 whole aggregated report. We assign a category to a warning by matching its
 message with one of the categories in Table~\ref{tab:warning_categories}. Since
@@ -197,16 +197,16 @@ the prediction model.
       \begin{tabular}{ll}\hline
         Category name & Description \\
       \hline
-        buffer &  Buffer related issues (e.g.: Buffer overrun) \\
+        buffer &  Buffer related issues (e.g., Buffer overrun) \\
         overflow & Integer overflow and underflow \\
         div0 & Divisions by zero \\
         uninitvar & Uninitialized variable \\
         unusedvar & Unused variable \\
-        pointer & Pointer issues (e.g.: Null pointer dereference) \\
-        operator & Misused operators (e.g.: $if(myVar = buf[i])\{\}$) \\
+        pointer & Pointer issues (e.g., Null pointer dereference) \\
+        operator & Misused operators (e.g., $if(myVar = buf[i])\{\}$) \\
         funcparams & Issues with function parameter \\
         alwaysbool & Expression is either always true or always false \\
-        memory & Memory issues (e.g.: Memory leak, Double free)\\
+        memory & Memory issues (e.g., Memory leak, Double free)\\
         other & Warnings not fit to the categories above \\ \hline
       \end{tabular}
       \caption{Warning Categories}\label{tab:warning_categories}
@@ -245,7 +245,7 @@ used to rank the warnings, as we describe in the second part of this section.
 
 \subsection{Training Decision Trees with AdaBoost}
 
-To make our model applicable to a wider variety of projects in a generic
+To make our model applicable to a broader variety of projects in a generic
 fashion, we only use data extracted from the warnings themselves. Since we do
 not inspect the source code or project history, which are shown to be the best
 places to look for features when classifying source code static analysis
@@ -297,7 +297,7 @@ built by randomly selecting 75\% of the examples labeled as true positives and
 then proceed to train our predictive model using 10-fold cross-validation
 with the training set. This cross-validation consists in dividing a data set
 into 10 groups: 9 groups are used to train the model while the remaining group is
-used to test it. The training step is repeated 10 times, switching the group
+used to test it. The training step is repeated ten times, switching the group
 used for testing until all groups were used in this way.  We perform the
 10-fold cross-validation technique with different values for \textbf{T} in
 AdaBoost. We then compare the average performance of the classifiers obtained for
