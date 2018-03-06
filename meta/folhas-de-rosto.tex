@@ -97,38 +97,38 @@ Finally, we would also like to thank Nelson Lago for all his ideas and reviews.
 % sugeridas da USP
 \begin{resumo}{port}
 
-Embora exista grande variedade de analizadores estáticos de código-fonte
+Embora exista grande variedade de analisadores estáticos de código-fonte
 disponíveis no mercado, tanto com licenças proprietárias, quanto com licenças
 livres, cada uma destas ferramentas mostra melhor desempenho em um pequeno
 conjunto de problemas distinto, dificultando a escolha de uma ferramenta de
-análise estática para analizar um programa. A combinação das análises de
+análise estática para analisar um programa. A combinação das análises de
 diferentes ferramentas pode reduzir o número de falsos negativos, mas gera um
 aumento no número de falsos positivos (que já é alto para muitas dessas
 ferramentas). Uma solução interessante é filtrar estes resultados para
 identificar os problemas com menores probabilidades de serem falsos
 positivos.
 Este trabalho apresenta \textit{kiskadee}, um sistema para promover o uso da
-análise estática de código fonte durante o ciclo de desenvilvimento de
-software provendo relatórios de anáise estática ranqueados. Primeiro,
-\textit{kiskadee} roda diversos analizadores estáticos no código-fonte. Em seguida,
+análise estática de código fonte durante o ciclo de desenvolvimento de
+software provendo relatórios de análise estática ranqueados. Primeiro,
+\textit{kiskadee} roda diversos analisadores estáticos no código-fonte. Em seguida,
 utilizando um modelo de classificação, os potenciais bugs detectados pelos
-analizadores estáticos são ranqueados conforme sua importância, onde defeitos
+analisadores estáticos são ranqueados conforme sua importância, onde defeitos
 críticos são colocados no topo de uma lista, e potenciais falsos positivos,
 ao fim da mesma lista.
 Para treinar o modelo de classificação do \textit{kiskadee}, nós realizamos uma
-pós-análise nos relatórios gerados por três analizadores estáticos ao
-analizarem casos de teste sintéticos disponibilizados pelo \textit{National
+pós-análise nos relatórios gerados por três analisadores estáticos ao
+analisarem casos de teste sintéticos disponibilizados pelo \textit{National
 Institute of Standards and Technology} (NIST) dos Estados Unidos. Para tornar
 a técnica apresentada o mais genérica possível, limitamos nossos dados às
 informações contidas nos relatórios de análise estática das três ferramentas,
 não utilizando outras informações, como históricos de mudança ou métricas
 extraídas do código-fonte dos programas inspecionados. as características
 extraídas destes relatórios foram utilizadas para treinar um conjunto de
-árvores de decisão utilizando o algorítmo AdaBoost para gerar um
+árvores de decisão utilizando o algoritmo AdaBoost para gerar um
 classificador mais forte, atingindo uma acurácia de classificação de 0.8 (a
 taxa de falsos positivos das ferramentas utilizadas foi de 0.61, quando
 combinadas). Finalmente, nós utilizamos este classificador para ranquear os
-alarmes dos analizadores estáticos nos baseando na probabilidade de um dado
+alarmes dos analisadores estáticos nos baseando na probabilidade de um dado
 alarme ser de fato um bug no código-fonte. Nossos resultados experimentais
 mostram que, em média, quando inspecionando alarmes ranqueados pelo \textit{kiskadee},
 encontram-se $5.2$ vezes menos falsos positivos antes de se encontrar cada bug
@@ -157,7 +157,7 @@ static analyzers are ranked based on their importance, with critical flaws
 ranked first, and potential false positives ranked last.
 To train kiskadee's classification model, we post-analyze the reports generated
 by three tools on synthetic test cases provided by the US National Institute
-of Standards and Technology. In order to make our technique as general as
+of Standards and Technology. To make our technique as general as
 possible, we limit our data to the reports themselves, excluding other
 information such as change histories or code metrics. The features extracted
 from these reports are used to train a set of decision trees using AdaBoost
