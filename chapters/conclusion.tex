@@ -16,7 +16,7 @@ source code change history and code metrics. Consequently, by smoothly
 decreasing the classification accuracy, the model obtained can be used
 successfully with any given software project. This is a compelling trade-off to
 build generic tools, like kiskadee, that can perform static analysis in any
-project given as input and arbitrate on the positiveness of the alarms
+project provided as input and arbitrate on the positiveness of the alarms
 generated in this fashion, allowing the continuous monitoring and analysis of
 different software repositories, such as the ones provided by
 GNU/Linux distributions.
@@ -32,7 +32,7 @@ prediction probabilities: the ones with a higher likelihood of being actual
 software flaws are placed at the top of the list, and the warnings more likely
 to be false positives are placed at the bottom of the list. We showed how our
 approach compares to randomly sorting the warnings in the report: results show
-our ranking method performs over 5 times better than random ranking.
+our ranking method performs over five times better than random ranking.
 
 The methodology and tools used to build the data set of labeled static analysis
 warnings answer our second research question (\textbf{RQ2}) of whether it is
@@ -51,7 +51,7 @@ publicly available at
 \url{https://www.ime.usp.br/~athoscr/files/ranking_data.tgz}.
 
 While the ranking model here achieved does not offer the same performance as
-the state of the art, it comes close while offering a much wider horizon of
+the state of the art, it comes close while offering a much more extensive horizon of
 possible applications.
 
 Supported by the ranking approach developed, kiskadee can be used to reduce the
@@ -62,8 +62,8 @@ could stop the inspection for that warning list. A variety of other tools to
 aggregate and display warnings from multiple static analyzers are both
 available in the industry and studied in the academia~\cite{buckers2017uav,
 heinemann2014teamscale}. A promising application of the approach to rank static
-analyzer warnings presented in this work is to integrate these tools (that
-aggregate warnings from multiple static analyzers in dashboards) with the
+analyzer warnings presented in this work is to integrate these tools, which
+aggregate warnings from multiple static analyzers in dashboards, with the
 techniques introduced here. 
 
 It is possible to employ the ranking strategy presented to reduce the cost of
@@ -71,7 +71,7 @@ inspecting false alarms by setting a minimum value for the rate in which real
 flaws are found per inspection in a ranked list (i.e., a confidence level),
 when the rate of real flaws per inspections drops below that level, one could
 stop the inspection for that warning list. Studying these confidence levels and
-the trade-off between loss of information and the cost of inspecting a larger
+the trade-off between loss of information and the cost of inspecting a more significant
 number of false alarms is left for future work.
 
 Related works propose methods to identify bugs included or fixed in specific
@@ -84,11 +84,11 @@ list displayed to the user would be a subset of the whole analysis report
 containing only the warnings introduced in a specific version of the analyzed
 software, reducing the scope of the manual inspections performed by software
 development teams.  This could also aid in identifying false positives, as
-proposed by Kim et al.~\cite{kim_which_2007}, since false positives tend
+proposed by Kim et al.~\cite{kim_which_2007} since false positives tend to
 persist between software versions. As claimed by Spacco et
 al.~\cite{spacco_tracking_2006}, tracking warnings across software versions is
-not as trivial as it may seem at a first glance. Hence, integrating such techniques
-to kiskadee, is left as a future work.
+not as trivial as it may seem at first glance. Hence, integrating such techniques
+to kiskadee is left as future work.
 
 Another interesting topic to be explored in future work is the study and design
 of a universal static analysis report standard. While Firehose meets our
@@ -96,9 +96,9 @@ experimental needs both as a report format and as a tool with its parsers and
 generators, there is no evidence of research effort or validation on the report
 format design. Validating it or designing a new format validated by static
 analysis tool developers, practitioners and researchers would be a valuable
-contribution for the field.
+contribution to the field.
 
-Finally, during our experiments we could observe the poor performance of some
+Finally, during our experiments, we could observe the poor performance of some
 open source static analyzers. NIST have evaluated several source code static
 analyzers, both proprietary and open source, and published their results
 through the Static Analysis Tool Exposition (SATE) workshop
@@ -108,7 +108,7 @@ not provide the names of the evaluated tools when reporting data such as false
 positive rates, we believe that the proprietary tools outperform FLOSS tools on
 the field. Studying the static analysis techniques used by FLOSS tools and
 comparing them to the ones used by proprietary tools (when feasible) and to the
-state of the art is left as a last topic for future work.
+state of the art is left as the last topic for future work.
 
 kiskadee is licensed under the GNU Affero General Public License. Its
 development repository, the complete project documentation, and the data set
