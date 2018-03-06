@@ -133,7 +133,7 @@ relevant characteristics for classification are the total number of warnings
 triggered for the file whose current warning was triggered for, the name of the
 tool that triggered the warning and the confirmations of each static analyzer
 for that warning. It is worth emphasizing that the feature referring to the
-tool name is not independent of the 3 boolean features related to the tools
+tool name is not independent of the three boolean features related to the tools
 confirmations. For instance, if Cppcheck appears as the tool name for a warning,
 the boolean feature for Cppcheck will be set to \emph{true}, and the other two
 features, related to Frama-C and Clang Static Analyzer, will be \emph{true} if
@@ -197,12 +197,12 @@ ranking algorithm with Eq.~(\ref{eq:performance}).
 \end{enumerate}
 
 The random ranking algorithm randomly shuffles the test set. To avoid bias in
-our experiment, we run the random algorithm 10 times, calculate the
+our experiment, we run the random algorithm ten times, calculate the
 $\mathit{FP}_{avg}$ for each of them and use the median value as
 $\mathit{FP}_{avg}(\mathit{random})$ to calculate the performance ratio in
 Eq.~(\ref{eq:performance}). Table~\ref{tab:avgfp} summarizes the average number
 of cumulative false positives hit before each true positive is found when
-navigating the list from the top to the bottom for different ranking approaches
+navigating the list from top to bottom for different ranking approaches
 over the test set (see Eq.~\ref{eq:avgfp}).
 
   \begin{table}
@@ -237,8 +237,8 @@ list per inspected entries (warnings) for different ranking models applied to
 the test set:
 
 \begin{itemize}
-\item\textit{optimal}, where all the real flaws are in the top of the list;
-\item\textit{worst}, where all the false positives are in the top of the list;
+\item\textit{optimal}, where all the real flaws are at the top of the list;
+\item\textit{worst}, where all the false positives are at the top of the list;
 \item\textit{random}, where the entries are randomly shuffled in a list; and
 \item\textit{model}, which represents the ranking model proposed in this paper while
 using the classifier obtained during our experiments, as described above.
@@ -248,7 +248,7 @@ As Figure~\ref{fig:inspections} shows, our model outperforms the random ranking
 algorithm by presenting all software flaws in the test set after 3990
 inspections, while the random ranking algorithm presents software flaws in a
 linear relation with the number of inspections, where the last few real
-software flaws in the test set are only presented in the end of the list, after
+software flaws in the test set are only presented at the end of the list, after
 6486 inspections.
 
 
@@ -266,7 +266,7 @@ should not make assumptions about these warnings.
 
 Despite this low proportion, the absolute number of warnings ($25,959$) was quite large
 when compared to the sizes of data sets of similar studies. For instance, Ruthruff et
-al.~\cite{ruthruff_predicting_2008} used a data set of $1,652$ warnings on
+al.~\cite{ruthruff_predicting_2008} used a data set of $1,652$ warnings in
 their study to predict actionable warnings. Our data set size highlights the
 benefits of automatic labeling static analyzer warnings, which is only feasible
 with synthetic test cases.
@@ -275,7 +275,7 @@ with synthetic test cases.
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{figures/roc.pdf}
-  \caption{Area under ROC curve versus number of trees used for AdaBoost}\label{fig:roc}
+  \caption{Area under ROC curve versus the number of trees used for AdaBoost}\label{fig:roc}
 \end{figure}
 
 
