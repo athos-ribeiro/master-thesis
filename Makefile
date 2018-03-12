@@ -23,8 +23,8 @@ BIBTEX         := biber
 # "-C utf8" e um truque para contornar este bug, que existe em outras
 # distribuicoes tambem:
 # https://bugs.launchpad.net/ubuntu/+source/xindy/+bug/1735439
-#MAKEINDEX      := makeindex
-MAKEINDEX      := texindy -C utf8 -M vendor/hyperxindy.xdy
+MAKEINDEX      := makeindex
+#MAKEINDEX      := texindy -C utf8 -M vendor/hyperxindy.xdy
 
 ###############################################################################
 

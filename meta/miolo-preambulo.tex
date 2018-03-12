@@ -707,8 +707,8 @@
 % "-C utf8" e um truque para contornar este bug, que existe em outras
 % distribuicoes tambem:
 % https://bugs.launchpad.net/ubuntu/+source/xindy/+bug/1735439
-\usepackage[xindy]{imakeidx} % usando xindy
-%\usepackage{imakeidx} % usando makeindex
+%\usepackage[xindy]{imakeidx} % usando xindy
+\usepackage{imakeidx} % usando makeindex
 
 % Por padrão, o cabeçalho das páginas do índice é feito em maiúsculas;
 % vamos mudar isso e deixar fancyhdr definir a formatação
@@ -806,7 +806,7 @@
   % usar makeindex, (removendo a opção "xindy" do pacote imakeidx), quem
   % precisa criar os hyperlinks é hyperref. Nesse caso, desabilite a
   % próxima linha para criar hyperlinks no índice.
-  hyperindex=false,
+  %hyperindex=false,
 ]{hyperref}
 
 %\usepackage[nameinlink,noabbrev,capitalise]{cleveref}
