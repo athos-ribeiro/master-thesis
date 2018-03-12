@@ -10,6 +10,7 @@
 - Fix missing index issue
 - Add kiskadee bug report overview in introduction
 - extend terminology section (see tcc)
+- Include a limitations section (or even a chapter) regarding comments on our paper submissions
 
 ## Questions
 
