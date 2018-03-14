@@ -47,7 +47,7 @@ performing expensive searches along their data sets.
 Juliet~\cite{juliet} is a synthetic C/C++ test suite created by the United
 States National Security Agency (NSA) and distributed by the National Institute
 of Standards and Technology (NIST) under the public domain. It is composed of 61,387 test cases
-covering 118 different software flaw categories. Each test case is a code
+covering 118 different software security-related flaw categories. Each test case is a code
 section with an instance of a specific flaw (to catch true positives) and an
 additional section with a correct, fixed instance of that previous flawed section (to
 catch false positives).  Juliet also includes a user guide with instructions
@@ -62,7 +62,45 @@ While the Criteria employed to select the tools are described
 in Section~\ref{sec:analyzers}, the list of selected static
 analyzers is shown in Table~\ref{tab:selected_tools}.
 
-Before examining Juliet with the selected static analysis tools, we prune the
+After choosing Juliet and the analysis tools, we must consider how to
+combine them to build our data set. Let $\{J\}$ be the whole set of Juliet
+test cases and $\{T_x\}$ the subset of Juliet test cases that tool $x$ is
+able to detect. We may choose to process $\{J\}$,
+$\{T_1 \cup T_2\cup\dots T_n\}$, or
+$\{T_1 \cap T_2 \cap\dots T_n\}$. We may even imagine processing, with each
+tool $x$, only the subset of test cases $\{T_x\}$ that the tool is able to
+detect.
+
+Let us point out that, in our case, there is no difference
+between the first and second options: since we are dealing with
+true and false positives only, and not negatives, $\{J - (T_1 \cup T_2\cup\dots T_n)\}$
+is never included in the results. There might be some difference,
+however, in studies focusing on negatives.
+
+Similary, there is no difference between processing different test
+subsets with each tool and processing $\{T_1 \cup T_2\cup\dots T_n\}$:
+test cases that cannot be addressed by some tool will not be in
+both cases. Again, focusing on negatives would invalidate this.
+
+The only truly different approach, therefore, is to analyze only
+$\{T_1 \cap T_2 \cap\dots T_n\}$. This has several drawbacks. The
+model we want to build works by identifying correlations among
+data points. With this choice of subset, we would exclude data
+in $\{(T_1 \cap T_2) - T_3\}$ etc., reducing the strength of
+the algorithm. This would also prevent us from using the
+correlations obtained to rank warnings thrown by a single tool.
+Since ranking is a very important aspect of our work, this
+would be highly inappropriate.
+
+In light of the previous discussion, we consider the use
+of $\{J\}$ as the simplest approach. As discussed, this does
+not mean we are adding false or noisy data into the
+model: some data points may be more or less relevant to the
+classifier, depending on which and how many tools brought
+them up, but identifying this relevance is exactly the
+role of the classifier.
+
+However, before examining Juliet with the selected static analysis tools, we still prune the
 test suite to prevent analysis of test cases that depend on constructs of
 specific operating systems or external libraries.
 Table~\ref{tab:juliet_numbers} shows the total number of test cases in Juliet
@@ -209,7 +247,7 @@ the prediction model.
         memory & Memory issues (e.g., Memory leak, Double free)\\
         other & Warnings not fit to the categories above \\ \hline
       \end{tabular}
-      \caption{Warning Categories}\label{tab:warning_categories}
+      \caption{Possible Assigned Warning Categories}\label{tab:warning_categories}
   \end{center}
 \end{table}
 

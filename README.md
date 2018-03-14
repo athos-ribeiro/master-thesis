@@ -2,6 +2,7 @@
 
 ## TODO
 
+- Add venn diagrams in ranking chapter
 - Add kiskadee screenshots
 - Include adaboost algorithm in ranking chapter
   - Explain algorithm
