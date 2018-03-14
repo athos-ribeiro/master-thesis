@@ -11,6 +11,7 @@
 - Add kiskadee bug report overview in introduction
 - extend terminology section (see tcc)
 - Include a limitations section (or even a chapter) regarding comments on our paper submissions
+- future work: use user feedback to enhance the ranking model
 
 ## Questions
 
