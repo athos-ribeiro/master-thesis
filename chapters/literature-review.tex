@@ -227,6 +227,14 @@ result in a low-quality classifier, we turn to ensemble techniques to generate
 and combine multiple weak classifiers generated this way into a stronger
 one~\cite{aima}.
 
+Xypolytos et al.~\cite{xypolytos2017framework} proposed an approach to
+prioritize the output of multiple static analyzers by assigning confidence
+scores to the tool warnings based on how well each tool handles a specific flaw
+category. Although one may compare the authors' approach to the one presented here
+since it also assesses the warnings solely based on the information present in the
+warnings themselves, the study is in its initial stages and the authors did not
+provide statistically significant results.
+
 Next, we introduce the continuous static analysis system developed during this
 work, describe its features and discuss the reasons behind the technical
 decision taken during the platform development.
