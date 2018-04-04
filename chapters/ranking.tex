@@ -84,9 +84,11 @@ however, in studies focusing on negatives.
 \input{figures/venn_out.tex}
 
 Similary, there is no difference between processing different test
-subsets with each tool and processing $\{T_1 \cup T_2\cup\dots T_n\}$:
+subsets with each tool and processing $\{T_1 \cup T_2\cup\dots T_n\} (Figure~\ref{fig:venn_union}$):
 test cases that cannot be addressed by some tool will not be in
 both cases. Again, focusing on negatives would invalidate this.
+
+\input{figures/venn_union.tex}
 
 The only truly different approach, therefore, is to analyze only $\{T_1 \cap
 T_2 \cap\dots T_n\}$ (region represented in Figure~\ref{fig:venn_common}). This
@@ -301,14 +303,15 @@ train several weak classifiers with our feature set. These weak classifiers
 combined can then arbitrate on new examples together, composing a stronger
 classifier.
 
-A weak classifier performs slightly better than a random
-classifier, i.e., $\epsilon < 0.5$ where $\epsilon$ is the classification error
-of the classifier. Ensemble learning methods combine the prediction of weak
+A weak classifier performs slightly better than a random classifier, i.e.,
+$\epsilon < 0.5$ where $\epsilon$ is the classification error of the
+classifier. Ensemble learning methods combine the prediction of weak
 classifiers to build stronger classifiers with lower errors~\cite{aima}. One
-widely used ensemble learning method is boosting~\cite{aima}, whose main idea is to run a
-weak learning algorithm several times in different distributions of the
-training set to generate various weak classifiers to be combined into a
-stronger one. For this study, we chose to use the AdaBoost algorithm~\cite{freund1999short}, a more general version of the original
+widely used ensemble learning method is boosting~\cite{aima}, whose main idea
+is to run a weak learning algorithm several times in different distributions of
+the training set to generate various weak classifiers to be combined into a
+stronger one. For this study, we chose to use the AdaBoost
+algorithm~\cite{freund1999short}, a more general version of the original
 boosting algorithm~\cite{polikar2006ensemble}.
 
 AdaBoost works by calling a base learner algorithm (\textbf{h}) repeatedly
