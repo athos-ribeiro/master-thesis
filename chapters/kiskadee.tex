@@ -142,7 +142,7 @@ detect and report weaknesses that can lead to security vulnerabilities}.
 
 We ran\textit{kiskadee} with three static analysis tools to generate the
 warnings data set for our experiments. Based on SAMATE tools list and
-references, the Criteria to select the tools were:
+references, the criteria to select the tools were:
 \begin{enumerate}
   \item \textbf{The tools must be able to examine C/C++ code for security flaws (e.g., buffer overflows, null pointer dereferences).} Different programming languages have different problems, and we do not want to address this variable at the moment. Since C and C++ programming languages are often used to develop critical software systems and several software flaws are mapped under Common Weakness Enumeration (CWE) for these languages, we chose to work with these languages.
   \item the tool source code must be released under a FLOSS license.
@@ -153,7 +153,7 @@ from disputes by tool vendors regarding the analysis of the results (such as
 allegations of sub-optimal tool calibration or detrimental calculation
 methodology)\footnote{In fact, if we chose
 to work with
-proprietary tools, we would want to contact the vendors about our experiments
+proprietary tools, we would need to contact the vendors about our experiments
 and request permission before publishing our results.}. FLOSS tools also simplify the process of retrieving string
 constructs for static analyzer warning messages and categories when necessary,
 since we can verify their source code.
