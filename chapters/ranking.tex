@@ -63,35 +63,43 @@ While the Criteria employed to select the tools are described
 in Section~\ref{sec:analyzers}, the list of selected static
 analyzers is shown in Table~\ref{tab:selected_tools}.
 
-After choosing Juliet and the analysis tools, we must consider how to
-combine them to build our data set. Let $\{J\}$ be the whole set of Juliet
-test cases and $\{T_x\}$ the subset of Juliet test cases that tool $x$ is
-able to detect. We may choose to process $\{J\}$,
-$\{T_1 \cup T_2\cup\dots T_n\}$, or
-$\{T_1 \cap T_2 \cap\dots T_n\}$. We may even imagine processing, with each
-tool $x$, only the subset of test cases $\{T_x\}$ that the tool is able to
-detect.
+After choosing Juliet and the analysis tools, we must consider how to combine
+them to build our data set. Let $\{J\}$ be the whole set of Juliet test cases
+and $\{T_x\}$ the subset of Juliet test cases that tool $x$ is able to detect.
+Figure~\ref{fig:venn} shows a Venn diagram for the situation where three static
+analysis tools are employed. We may choose to process $\{J\}$, $\{T_1 \cup
+T_2\cup\dots T_n\}$, or $\{T_1 \cap T_2 \cap\dots T_n\}$. We may even imagine
+processing, with each tool $x$, only the subset of test cases $\{T_x\}$ that
+the tool is able to detect.
+
+\input{figures/venn.tex}
 
 In our case, there is no difference
 between the first and second options: since we are dealing with
 true and false positives only, and not negatives, $\{J - (T_1 \cup T_2\cup\dots T_n)\}$
+(region represented in Figure~\ref{fig:venn_out})
 is never included in the results. There might be some difference,
 however, in studies focusing on negatives.
+
+\input{figures/venn_out.tex}
 
 Similary, there is no difference between processing different test
 subsets with each tool and processing $\{T_1 \cup T_2\cup\dots T_n\}$:
 test cases that cannot be addressed by some tool will not be in
 both cases. Again, focusing on negatives would invalidate this.
 
-The only truly different approach, therefore, is to analyze only
-$\{T_1 \cap T_2 \cap\dots T_n\}$. This has several drawbacks. The
-model we want to build works by identifying correlations among
-data points. With this choice of subset, we would exclude data
-in $\{(T_1 \cap T_2) - T_3\}$ etc., reducing the strength of
-the algorithm. This would also prevent us from using the
-correlations obtained to rank warnings thrown by a single tool.
-Since ranking is a very important aspect of our work, this
-would be highly inappropriate.
+The only truly different approach, therefore, is to analyze only $\{T_1 \cap
+T_2 \cap\dots T_n\}$ (region represented in Figure~\ref{fig:venn_common}). This
+has several drawbacks. The model we want to build works by identifying
+correlations among data points. With this choice of subset, we would exclude
+data in $\{(T_1 \cap T_2) - T_3\}$ etc., shown in Figure~\ref{fig:venn_exp}, reducing the strength of the
+algorithm. This would also prevent us from using the correlations obtained to
+rank warnings thrown by a single tool.  Since ranking is a very important
+aspect of our work, this would be highly inappropriate.
+
+\input{figures/venn_common.tex}
+
+\input{figures/venn_exp.tex}
 
 In light of the previous discussion, we consider the use
 of $\{J\}$ as the simplest approach. As discussed, this does
