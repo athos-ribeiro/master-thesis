@@ -1,5 +1,9 @@
 # Master's degree dissertation - Athos Ribeiro - IME-USP
 
+## Questions
+
+- Should I keep names before citations with this references styles? example: Jonson et al JOHNSON Et Al, 2017 performed...
+
 ## TODO
 
 - Add venn diagrams in ranking chapter
@@ -20,7 +24,3 @@
 - Maybe other tools with broader range of findings could be more reliable in the validation.
 - How does the true negative rate influence the classifier?
 - In the attached file there are some interesting cases, which should be investigated in more detail. E.g.: all tools give warnings for a particular line, while Juliet gives a false label for that line.
-
-## Questions
-
-- Should I keep names before citations with this references styles? example: Jonson et al JOHNSON Et Al, 2017 performed...
