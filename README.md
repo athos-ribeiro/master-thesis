@@ -6,15 +6,12 @@
 
 ## TODO
 
-- Add venn diagrams in ranking chapter
-- Include adaboost algorithm in ranking chapter
-  - Explain algorithm
-- Describe adaboost algorithm
-- future work: use user feedback to enhance the ranking model
-- Add kiskadee screenshots
-- Add kiskadee bug report overview in introduction
-- extend terminology section (see tcc)
 - Set index words
+- Add kiskadee screenshots
+- future work: use user feedback to enhance the ranking model
+- extend terminology section (see tcc)
+- Add kiskadee bug report overview in introduction
+- Explain adaboost algorithm
 
 ### Ideas left from SANER paper
 
