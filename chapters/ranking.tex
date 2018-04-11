@@ -337,8 +337,40 @@ The AdaBoost algorithm works with any given base learner. We use a decision
 tree learning algorithm as our base learner because we have both categorical
 and non-categorical features in our data set, as shown in
 Section~\ref{sec:data}, and decision trees can work with both, without the need
-to pre-process the data set. Furthermore, as shown in the literature, decision trees 
-perform well with AdaBoost~\cite{drucker1996boosting}.
+to pre-process the data set. Furthermore, as shown in the literature, decision
+trees perform well with AdaBoost~\cite{drucker1996boosting}. Below we present a
+complete definition of the AdaBoost algorithm as defined in Freund et
+al.~\cite{freund1999short}.
+
+\begin{algorithm}
+\begin{algorithmic}
+\STATE Given: $(x_1,y_1),\dots,(x_m,y_m)$ where $x_i \in X, y_i \in Y = {-1,+1}$
+\STATE Initialize $D_1(i) = 1/m$.
+  \FOR{$t = 1, \dots, T:$}
+  \STATE{Train weak learner using distribution $D_t$.}
+  \STATE{Get weak hypothesis $h_t : X \rightarrow \{-1,+1\}$ with error
+  \begin{equation*}
+    \epsilon_t = Pr_{i \sim D_t}[h_t(x_i) \ne y_i].
+  \end{equation*} }
+  \STATE{Choose $\alpha_t = \frac{1}{2}\ln{(\frac{1 - \epsilon_t}{\epsilon_t})}$.}
+  \STATE{Update:
+  \begin{align*}
+    D_{t+1}(i) &= \frac{D_t(i)}{Z_t}\times \left\{
+      \begin{array}{l} \mathrm{e}^{- \alpha_t} \text{ if } h_t(x_i) = y_i \\
+      \mathrm{e}^{\alpha_t} \text{ \ \ if } h_t(x_i) \ne y_i \end{array} \right.\\
+      &= \frac{D_t(i)\exp(- \alpha_t y_i h_t(x_i))}{Z_t}
+  \end{align*}
+  \ where $Z_t$ is a normalization factor (chosen so that $D_{t+1}$ will be a distribution).
+}
+  \ENDFOR
+\STATE{Output the final hypothesis:
+\begin{equation*}
+  H\left(x\right) = \mathit{sign} \left( \sum\limits_{t=1}^T\alpha_t h_t(x) \right)
+\end{equation*} }
+\end{algorithmic}
+\label{alg:adaboost}
+\caption{AdaBoost algorithm \cite{freund1999short}}
+\end{algorithm}
 
 We divide our data set (the list of labeled features obtained in
 Section~\ref{sec:data}) into a training set and a test set. The training set is
