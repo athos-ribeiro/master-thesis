@@ -336,10 +336,31 @@ project development mailing lists. Proper credits and acknowledgements for the
 UnB contributions can be found in the \emph{Acknowledgements} section in the
 beginning of this document.
 
-%Figures~\ref{} show some screens of the UI developed by the students. The next
-%section presents more speific details on kiskadee's implementation.
+Figure~\ref{fig:kiskadee-main}, Figure~\ref{fig:kiskadee-list}, and
+Figure~\ref{fig:kiskadee-list-complete} show some screens of the UI developed
+by the students. The next section presents more speific details on kiskadee's
+implementation.
 
-%TODO: Insert kiskadee screenshots
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/kiskadee-main} 
+  \caption{kiskadee UI: Package search page}
+  \label{fig:kiskadee-main} 
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/kiskadee-list} 
+  \caption{Kiskadee UI: List and versions of analyzed packages}
+  \label{fig:kiskadee-list} 
+\end{figure}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=.95\textwidth]{figures/kiskadee-list-complete} 
+  \caption{Kiskadee UI: Comprehensive list of analyzed packages}
+  \label{fig:kiskadee-list} 
+\end{figure}
 
 \section{Architecture and Implementation Details}
 \label{sec:implementation}
@@ -370,6 +391,7 @@ defined by the loaded fetchers.
 
 A new fetcher must inherit from kiskadee's Fetcher and implement some required
 abstract methods so kiskadee knows how to
+
 \begin{itemize}
   \item monitor the target;
   \item download source code; and
