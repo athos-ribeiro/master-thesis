@@ -46,8 +46,7 @@ The abstract and conclusion sections in the papers labeled as either
 papers not related to any of the defined categories were discarded.
 
 Finally, all the 36 papers not discarded were selected for this review, as
-shown in Figure \ref{fig:structured_review}. In special, Muske and
-Serebrenik~\cite{muske2016survey} provided an overview of different techniques
+shown in Figure \ref{fig:structured_review}. In special, \cite{muske2016survey} provided an overview of different techniques
 on how to handle static analysis alarms by successfully answering their
 research question: \textit{what are possible approaches for handling the static
 analysis alarms?} In this survey, the authors classified part of the techniques
@@ -66,19 +65,19 @@ reviewed through the methodology here presented.
 \section{Related work}
 \label{sec:related_work}
 
-Evans~\cite{evans_improving_2002} states that although security vulnerabilities
+\cite{evans_improving_2002} state that although security vulnerabilities
 are well understood, it is not a common practice to include techniques to detect
 or avoid them in the development processes and suggests that instead of solely
 relying on programmers, tools to prevent and detect software vulnerabilities
 should be built and integrated into software development cycles. It is also
 known that static analysis helps programmers identify software vulnerabilities
-before they reach production~\cite{evans_improving_2002} in a cheaper way than
-solely conducting manual inspections~\cite{johnson_why_2013}, thus our interest
+before they reach production~\citep{evans_improving_2002} in a cheaper way than
+solely conducting manual inspections~\citep{johnson_why_2013}, thus our interest
 in static analyzers.
 
 Several studies propose ways to reduce false positives, which are usually based
-on historical analysis~\cite{penta_evolution_2008, spacco_tracking_2006,
-kim_which_2007} or some level of statistical analysis~\cite{muske2013review,
+on historical analysis~\citep{penta_evolution_2008, spacco_tracking_2006,
+kim_which_2007} or some level of statistical analysis~\citep{muske2013review,
 boogerd2006prioritizing, kremenek2003z, ruthruff_predicting_2008}. The
 remainder of this section discusses related work among the reviewed papers
 selected during the structured literature review. First, we define important
@@ -93,17 +92,17 @@ The United States Committee on National Security
 Systems\footnote{\url{cnss.gov}} (CNSS) defines \textbf{software assurance} as
 the \textit{level of confidence that software is free from vulnerabilities [...]
 and that the software functions in the intended
-manner}~\cite{instruction20034009}. The National Aeronautics and Space
+manner}~\citep{instruction20034009}. The National Aeronautics and Space
 Administration (NASA) defines software assurance as \textit{the planned and
 systematic set of activities that ensure that software life cycle processes and
 products conform to requirements, standards, and procedures}, which includes
 the disciplines of software safety and software verification and
-validation~\cite{nasastd8739}. Both these definitions are adopted by the SAMATE
+validation~\citep{nasastd8739}. Both these definitions are adopted by the SAMATE
 project. We understand that static analysis is useful to aid software safety
 and therefore is strongly related to software assurance.
 
 In this research, the same terminology used by
-SAMATE~\cite{black_counting_2011} will be used, in the sense that a software
+SAMATE~\citep{black_counting_2011} will be used, in the sense that a software
 \textit{vulnerability} is a property of a system's security requirements,
 design, implementation, or operation that could be triggered, resulting in a
 security failure. A vulnerability is the result of one or more
@@ -112,10 +111,10 @@ operation. This definition also means that a single weakness may or may not resu
 vulnerability, depending on the software's usage and execution. Whenever we use
 \textit{bugs} or \textit{flaws}, we mean weaknesses, and we will usually refer
 to them as flaws, as in SAMATE's SATE V Ockham Sound Analysis Criteria
-analysis~\cite{black_sate_2016}.
+analysis~\citep{black_sate_2016}.
 
 MITRE Corporation\footnote{\url{mitre.org}} maintains the \textit{Common Weakness
-Enumeration}~\cite{cwe_page} (CWE), a community-developed dictionary of
+Enumeration}~\citep{cwe_page} (CWE), a community-developed dictionary of
 software weaknesses types with the support of several organizations, such as Apple,
 HP, IBM, and Microsoft. The CWE entries include, among other information, name
 and description of the weakness type, behavior of the weakness, description and
@@ -124,10 +123,10 @@ software weaknesses registered as CWEs are buffer overflows, divisions by zero,
 and NULL pointer dereferences. Whenever possible, we will try to describe
 specific flaws matching them with CWEs. MITRE also maintains a dictionary for
 publicly known software vulnerabilities and exposures, the \textit{Common
-Vulnerabilities and Exposures}~\cite{cve_page} (CVE), which maps vulnerabilities
+Vulnerabilities and Exposures}~\citep{cve_page} (CVE), which maps vulnerabilities
 in real-world software.
 
-For SAMATE \cite{black_counting_2011}, a \textit{warning} is an issue identified
+For SAMATE \citep{black_counting_2011}, a \textit{warning} is an issue identified
 by a static analyzer that might be a software flaw, and a \textit{report} is
 defined as a set of warnings generated by a single run of a static analyzer in
 a software corpus. This terminology is important when referring to static
@@ -141,7 +140,7 @@ machine learning models to arbitrate about the positiveness of static analysis
 alarms are extracted from properties intrinsic to the analyzed project,
 namely the project change history, function and file names, and even the name
 of the programmer who introduced the change that triggered the
-alarm~\cite{kremenek2004correlation, heckman2009model, jung2005taming,
+alarm~\citep{kremenek2004correlation, heckman2009model, jung2005taming,
 ruthruff_predicting_2008, yoon2014reducing}. Although these project-specific
 features are in great part responsible for the high accuracy of the models
 proposed up to now, a model trained on such features cannot be readily used to
@@ -149,18 +148,18 @@ query about alarms generated for other projects, hampering the general
 availability of the model in automated post-analysis tools, which could
 support developers by decreasing the time spent inspecting false alarms.
 
-Boogerd~\cite{boogerd2006prioritizing} presents a warning ranking technique
+\cite{boogerd2006prioritizing} present a warning ranking technique
 that uses the probability of a code section being executed to prioritize
 warnings. The authors claim that other than using the warnings severity and the
 \textit{Z-ranking} technique, they were not aware of any other methods to rank
-warnings by the time of their study. Z-ranking~\cite{kremenek2003z} is a
+warnings by the time of their study. Z-ranking~\citep{kremenek2003z} is a
 technique to rank warnings using the frequency counts of true and false
 positives. It was validated against random ranking algorithms. The
 authors of the Z-ranking technique emphasize that a classification system
 cannot be perfect since static analysis cannot be perfect itself.
 We also use a random ranking algorithm to assess our warnings ranking approach.
 
-Later, Muske~\cite{muske2013review} pointed out the difficulties in reviewing a high
+Later, \cite{muske2013review} pointed out the difficulties in reviewing a high
 number of warnings and divided the warnings into different categories to identify
 redundant warnings and estimate which categories were more prone to hold false
 positives. This work also mentioned that if a code is never executed,
@@ -168,7 +167,7 @@ warnings pointing at it should have lower review priority.
 We divide warnings into categories and use these categories as one of the features
 to train the classification model used to rank warnings.
 
-Ruthruff et al.~\cite{ruthruff_predicting_2008} propose a method to maximize
+\cite{ruthruff_predicting_2008} propose a method to maximize
 the return on investment of static analyzers to predict if a warning is an
 actionable fault, i.e., if it is not a false positive and if a programmer
 should fix it. It uses a screening approach for model building that discards
@@ -179,7 +178,7 @@ from the Z-ranking approach, the authors did run some static analysis in the
 code just to extract factors from it. The present study proposes a method to
 rank warnings based only on the information provided by the analyses.
 
-In his work, Spacco et al.~\cite{spacco_tracking_2006} implement a technique
+In their work, \cite{spacco_tracking_2006} implement a technique
 to track static analyzers warnings that correspond to the same flaw across
 different software versions. This technique would enable the assembly of tool report
 deltas, helping developers to focus only on new flaws. Since false positives
@@ -194,7 +193,7 @@ software package. Authors claim that although it seems an easy task, tracking wa
 across software versions is not a trivial problem. Hence, we leave the technique
 implementation for future work, as pointed in Chapter~\ref{ch:conclusion}.
 
-Kim et al.~\cite{kim_which_2007} mention the high rates of false positives in
+\cite{kim_which_2007} mention the high rates of false positives in
 static analysis and claim that sometimes static analyzers prioritize their
 warnings inefficiently. Later, they propose a method to prioritize
 warnings by searching for bug fixes in the software change history. They then
@@ -203,7 +202,7 @@ all warnings in that category are important. By improving the precision of the
 tools used for the study on finding true positives, the authors showed that the
 software change history may be important to prioritize warnings.
 
-In another work, Penta et al.~\cite{penta_evolution_2008} performed an analysis
+In another work, \cite{penta_evolution_2008} performed an analysis
 of the evolution of vulnerabilities detected by static analyzers in three
 different open source applications: Samba, Squid, and Horde. The authors
 analyzed how the number of vulnerabilities varies over time. Since they
@@ -225,9 +224,9 @@ more information and correlate the information provided by them to better
 assess the correctness of a given warning.  Since this strategy still might
 result in a low-quality classifier, we turn to ensemble techniques to generate
 and combine multiple weak classifiers generated this way into a stronger
-one~\cite{aima}.
+one~\citep{aima}.
 
-Xypolytos et al.~\cite{xypolytos2017framework} proposed an approach to
+\cite{xypolytos2017framework} proposed an approach to
 prioritize the output of multiple static analyzers by assigning confidence
 scores to the tool warnings based on how well each tool handles a specific flaw
 category. Although one may compare the authors' approach to the one presented here

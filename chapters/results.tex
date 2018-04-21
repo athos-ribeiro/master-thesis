@@ -78,7 +78,7 @@ model over the test data set.
     For the tools, a false negative involves
     sites in Juliet for which they did not trigger any warnings,
     and our model does not consider such sites. Still, we can
-    compare this value with those of related works. For instance, Ruthruff et al.~\cite{ruthruff_predicting_2008} could
+    compare this value with those of related works. For instance, \cite{ruthruff_predicting_2008} could
     identify false positive warnings with 0.85 accuracy. We consider 0.805 to
     be an excellent result given the advantages we gained by not using information extracted from
     the analyzed source code other than the static analyzers warnings
@@ -161,7 +161,7 @@ our ranking approach and compare it with a random ranking algorithm.
 
 To evaluate our ranking
 performance over the test set, we refer to the methodology presented by
-Kremenek et al.~\cite{kremenek2004correlation}, which we describe below.
+\cite{kremenek2004correlation}, which we describe below.
 
 \begin{enumerate}
 
@@ -265,16 +265,16 @@ flaws or false positives, and according to Juliet documentation itself, one
 should not make assumptions about these warnings.
 
 Despite this low proportion, the absolute number of warnings ($25,959$) was quite large
-when compared to the sizes of data sets of similar studies. For instance, Ruthruff et
-al.~\cite{ruthruff_predicting_2008} used a data set of $1,652$ warnings in
+when compared to the sizes of data sets of similar studies. For instance,
+\cite{ruthruff_predicting_2008} used a data set of $1,652$ warnings in
 their study to predict actionable warnings. Our data set size highlights the
 benefits of automatic labeling static analyzer warnings, which is only feasible
 with synthetic test cases.
 % I believe we can safely say that, due to undecidability of static analysis. Of course it is possible to automate the process with other means, like by analyzing bug reports for confirmed issues and matching the bug locations with the warnings, but this would still require non-trivial manual effort.
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/roc.pdf}
+\includegraphics[width=0.7\textwidth]{figures/roc.pdf}
   \caption{Area under ROC curve versus the number of trees used for AdaBoost}\label{fig:roc}
 \end{figure}
 
@@ -287,7 +287,7 @@ classifiers) varies as we increase the number of trees used in our model ($T$).
 As can be seen, the value converges very quickly, for values of $T$ as low as 5, and remains
 approximately constant up to $T = 150$, which was the highest value tested
 during our experiments. At the same time, we did not observe the expected
-reduction in the error rate as described in \cite{freund1999short}.
+reduction in the error rate as described by \cite{freund1999short}.
 These two discrepancies in relation to the expected behavior of the weak classifiers aggregate 
 could be due to the imbalance of examples present
 in our data set, as can be observed in Table~\ref{tab:labeled_warnings}. This

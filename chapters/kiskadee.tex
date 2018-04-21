@@ -111,7 +111,7 @@ projects release versions too fast, making the effort of packaging every single
 release pointless to the distribution packager.
 
 Fedora Project uses an external system to monitor the software projects they
-distribute. Anitya~\cite{anitya} maps upstream projects to distribution package
+distribute. Anitya~\citep{anitya} maps upstream projects to distribution package
 names. Whenever a new version of an upstream project is released, Anitya
 publishes the new release in a Fedora infrastructure publish-subscribe system
 where other systems in the distribution infrastructure can handle it. New
@@ -145,7 +145,7 @@ warnings data set for our experiments. Based on SAMATE tools list and
 references, the criteria to select the tools were:
 \begin{enumerate}
   \item \textbf{The tools must be able to examine C/C++ code for security flaws (e.g., buffer overflows, null pointer dereferences).} Different programming languages have different problems, and we do not want to address this variable at the moment. Since C and C++ programming languages are often used to develop critical software systems and several software flaws are mapped under Common Weakness Enumeration (CWE) for these languages, we chose to work with these languages.
-  \item the tool source code must be released under a FLOSS license.
+  \item The tool source code must be released under a FLOSS license.
 \end{enumerate}
 Criterion~1 ensures the tool can analyze a subset of the test cases in our data
 set, introduced in Section~\ref{sec:data}, whereas criterion 2 preserves us
@@ -164,7 +164,7 @@ analyzers selected were \emph{Clang Static Analyzer} (version 3.9.1),
 analysis plugin activated).
 
 \textit{Frama-C} with its value analysis plug-in was the first choice since it
-was the tool used for the Ockham Criteria~\cite{black_sate_2016} and the
+was the tool used for the Ockham Criteria~\citep{black_sate_2016} and the
 authors claim Frama-C is a sound tool, not producing false positives, which may
 help on the ranking phase of this study. It uses abstract interpretation
 techniques. Although SAMATE does not list Frama-C in its recommended tools list, it
@@ -212,11 +212,11 @@ discuss this common reporting language.
 
 A previous work has discussed the problem of having a common reporting language
 for static analyzers. By applying the Ockham Sound Analysis
-Criteria~\cite{black_sate_2016}, we designed a simplified common bug report
+Criteria~\citep{black_sate_2016}, we designed a simplified common bug report
 format to compare known bugs with bug reports from the tools evaluated with the
 criteria. The criteria data and programs to reproduce results are available in
 the SATE V Ockham Sound Analysis Criteria NIST Internal Report
-\cite{black_sate_2016}, where the bug report formats specified can be retrieved
+\citep{black_sate_2016}, where the bug report formats specified can be retrieved
 from and replicated. While the format was fit to perform the analysis, we
 designed it on top of the criteria concepts and the tools used for the criteria,
 which needed the following information:
@@ -287,12 +287,12 @@ with it.
 
 FLOSS development communities have also been discussing a common static
 analysis report output format. The Fedora Project Static Analysis Special
-Interest Group (SIG)~\cite{fedora:static:sig} designed a tool to run static analyzers
+Interest Group (SIG)~\citep{fedora:static:sig} designed a tool to run static analyzers
 during the
-package build process \cite{fedora:mockwithanalysis}.  Although the tool itself
+package build process \citep{fedora:mockwithanalysis}.  Although the tool itself
 is in its early development stages and not ready for usage in production, the
 developers discussed a common report format for the static
-analyzers in their mailing lists~\cite{fedora:mlist}. After a few iterations, with Debian Project
+analyzers in their mailing lists~\citep{fedora:mlist}. After a few iterations, with Debian Project
 developers collaboration, they created and evolved \textit{Firehose}, a complete definition
 of a common warnings report format for static analyzers and a set of tools to
 generate, parse, and verify this format.
@@ -359,7 +359,7 @@ implementation.
   \centering
   \includegraphics[width=.95\textwidth]{figures/kiskadee-list-complete} 
   \caption{Kiskadee UI: Comprehensive list of analyzed packages}
-  \label{fig:kiskadee-list} 
+  \label{fig:kiskadee-list-complete} 
 \end{figure}
 
 \section{Architecture and Implementation Details}

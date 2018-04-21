@@ -30,21 +30,21 @@ consist of real-world software or synthetic test cases, i.e., programs written
 with intentional defects.
 
 Previous studies have used real-world software to arbitrate about the
-positiveness of static analysis warnings~\cite{kremenek2004correlation,
+positiveness of static analysis warnings~\citep{kremenek2004correlation,
 jung2005taming, yoon2014reducing, yuksel2013classification,
 ruthruff_predicting_2008}. A relevant obstacle for using real-world software to
 retrieve a data set is that one must meticulously inspect each alarm triggered
 by a static analyzer and the relevant location in the analyzed program to
 determine whether the alarm is a true or a false positive.  Unless one has
 access to an environment where alarms positiveness information is already
-available, as in Ruthruff~\cite{ruthruff_predicting_2008}, performing these
+available, as in \cite{ruthruff_predicting_2008}, performing these
 manual inspections is an overly time-consuming approach, which must be
 performed for each different static analysis tool being assessed. Differently,
 the location and other details of the injected flaws in synthetic test cases
 are previously known, facilitating studies and freeing researchers from
 performing expensive searches along their data sets.
 
-We use Juliet~\cite{juliet} version 1.2 to generate our data set. Juliet is a
+We use Juliet~\citep{juliet} version 1.2 to generate our data set. Juliet is a
 synthetic C/C++ test suite created by the United States National Security
 Agency (NSA) and distributed by the National Institute of Standards and
 Technology (NIST) under the public domain. It is composed of 61,387 test cases
@@ -206,8 +206,8 @@ warnings. Here, a feature is any characteristic that can be attributed to a
 warning in the data set. To select relevant features for false and positive
 alarm classification, we refer to previous studies that also rely on
 characteristics extracted from alarms and source code to classify alarms
-\cite{ruthruff_predicting_2008, kremenek2004correlation, heckman2009model,
-jung2005taming}. For instance, Kremenek et al. \cite{kremenek2004correlation}
+\citep{ruthruff_predicting_2008, kremenek2004correlation, heckman2009model,
+jung2005taming}. For instance, \cite{kremenek2004correlation}
 demonstrate that the tool warning positiveness is highly correlated to code
 locality.  However, we only use the data extracted from the warnings
 themselves, not relying on other information, such as the analyzed project
@@ -306,13 +306,13 @@ classifier.
 A weak classifier performs slightly better than a random classifier, i.e.,
 $\epsilon < 0.5$ where $\epsilon$ is the classification error of the
 classifier. Ensemble learning methods combine the prediction of weak
-classifiers to build stronger classifiers with lower errors~\cite{aima}. One
-widely used ensemble learning method is boosting~\cite{aima}, whose main idea
+classifiers to build stronger classifiers with lower errors~\citep{aima}. One
+widely used ensemble learning method is boosting~\citep{aima}, whose main idea
 is to run a weak learning algorithm several times in different distributions of
 the training set to generate various weak classifiers to be combined into a
 stronger one. For this study, we chose to use the AdaBoost
-algorithm~\cite{freund1999short}, a more general version of the original
-boosting algorithm~\cite{polikar2006ensemble}.
+algorithm~\citep{freund1999short}, a more general version of the original
+boosting algorithm~\citep{polikar2006ensemble}.
 
 AdaBoost works by calling a base learner algorithm (\textbf{h}) repeatedly
 (\textbf{T} times) while maintaining a set of weights over the training data
@@ -323,7 +323,7 @@ iteration). Each example in the training data set starts with the same weight,
 but they are updated after each iteration: the weights of misclassified
 examples are increased and the weights of examples correctly classified are
 decreased. This forces the base learner algorithm to focus on the hard examples
-of the training data set~\cite{freund1999short}. Each weak classifier is
+of the training data set~\citep{freund1999short}. Each weak classifier is
 assigned a voting weight (\boldmath$\alpha$) based on its importance. The
 strong binary classifier (\textbf{H}) is given by Eq.~(\ref{eq:ada}), where
 \textbf{x} is a new example to be classified.
@@ -338,9 +338,9 @@ tree learning algorithm as our base learner because we have both categorical
 and non-categorical features in our data set, as shown in
 Section~\ref{sec:data}, and decision trees can work with both, without the need
 to pre-process the data set. Furthermore, as shown in the literature, decision
-trees perform well with AdaBoost~\cite{drucker1996boosting}. Below we present a
-complete definition of the AdaBoost algorithm as defined in Freund et
-al.~\cite{freund1999short}.
+trees perform well with AdaBoost~\citep{drucker1996boosting}. Below we present a
+complete definition of the AdaBoost algorithm as defined by
+\cite{freund1999short}.
 
 \begin{algorithm}
 \begin{algorithmic}
@@ -369,7 +369,7 @@ al.~\cite{freund1999short}.
 \end{equation*} }
 \end{algorithmic}
 \label{alg:adaboost}
-\caption{AdaBoost algorithm \cite{freund1999short}}
+\caption{AdaBoost algorithm \citep{freund1999short}}
 \end{algorithm}
 
 We divide our data set (the list of labeled features obtained in

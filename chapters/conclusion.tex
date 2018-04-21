@@ -60,7 +60,7 @@ which real flaws are found per inspection in a ranked list (i.e., a confidence
 level). When the rate of real flaws per inspections drops below that level, one
 could stop the inspection for that warning list. A variety of other tools to
 aggregate and display warnings from multiple static analyzers are both
-available in the industry and studied in the academia~\cite{buckers2017uav,
+available in the industry and studied in the academia~\citep{buckers2017uav,
 heinemann2014teamscale}. A promising application of the approach to rank static
 analyzer warnings presented in this work is to integrate these tools, which
 aggregate warnings from multiple static analyzers in dashboards, with the
@@ -84,9 +84,8 @@ list displayed to the user would be a subset of the whole analysis report
 containing only the warnings introduced in a specific version of the analyzed
 software, reducing the scope of the manual inspections performed by software
 development teams.  This could also aid in identifying false positives, as
-proposed by Kim et al.~\cite{kim_which_2007} since false positives tend to
-persist between software versions. As claimed by Spacco et
-al.~\cite{spacco_tracking_2006}, tracking warnings across software versions is
+proposed by \cite{kim_which_2007} since false positives tend to
+persist between software versions. As claimed by~\cite{spacco_tracking_2006}, tracking warnings across software versions is
 not as trivial as it may seem at first glance. Hence, integrating such techniques
 to kiskadee is left as future work.
 
@@ -102,7 +101,7 @@ Finally, during our experiments, we could observe the poor performance of some
 open source static analyzers. NIST have evaluated several source code static
 analyzers, both proprietary and open source, and published their results
 through the Static Analysis Tool Exposition (SATE) workshop
-reports~\cite{okun2013report}. Their results present much lower false positive
+reports~\citep{okun2013report}. Their results present much lower false positive
 rates than the ones we found during our experiments. Although SATE reports do
 not provide the names of the evaluated tools when reporting data such as false
 positive rates, we believe that the proprietary tools outperform FLOSS tools on

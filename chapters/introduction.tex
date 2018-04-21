@@ -11,16 +11,16 @@ Automated static analysis tools, also referred to as static analyzers, can
 alleviate this problem by examining the source code of computer programs for
 pre-determined properties, particularly security flaws. In theory, source code
 static analysis can explore abstractions of all possible program behaviors,
-which is not feasible with software testing~\cite{hovemeyer_finding_2004}.
+which is not feasible with software testing~\citep{hovemeyer_finding_2004}.
 Hence, this class of tools has the potential to find problems that tend to
 manifest themselves infrequently and are, therefore, harder to detect through
-other methods~\cite{black2009static}, which makes their usage a complementary
+other methods~\citep{black2009static}, which makes their usage a complementary
 approach to automated testing. Once aware of a possible anomaly, developers can
 inspect the suggested section of the program and take action when necessary,
 patching the flawed code even before it reaches production releases.
 
 Such tools show great promise but, due to the undecidable nature of the
-problem~\cite{landi_undecidability_1992}, static analyzers commonly use
+problem~\citep{landi_undecidability_1992}, static analyzers commonly use
 heuristics or approximations to determine properties for a given code
 construct, which frequently induces them to make inaccurate assumptions
 regarding the behavior of the program under evaluation. These assumptions may
@@ -38,13 +38,13 @@ false positives due to the undecidability problem.
 
 Empirical studies show that even carefully designed static analyzers may
 generate warnings at false positive rates that can exceed
-30\%~\cite{kremenek2004correlation}. Such false alarms require manual
+30\%~\citep{kremenek2004correlation}. Such false alarms require manual
 inspection, increasing the effort of analyzing tool reports when they include
 significant amounts of false
-positives~\cite{muske2013review,heckman2007adaptively}, hindering the usage and
-general adoption of automated source code analyzers~\cite{johnson_why_2013},
+positives~\citep{muske2013review,heckman2007adaptively}, hindering the usage and
+general adoption of automated source code analyzers~\citep{johnson_why_2013},
 which can lead static analyzers to be discarded as
-irrelevant~\cite{kremenek2003z}.
+irrelevant~\citep{kremenek2003z}.
 A substantial improvement in this area could foster
 a more extensive inclusion of static analysis in software development cycles which,
 in turn, could help reduce the number of bugs and security flaws in many different
@@ -56,7 +56,7 @@ by static analyzers --- can smooth the process of manually verifying analyzer
 reports. This idea has prompted the elaboration of several studies that propose
 either pruning or ranking the warnings from static analysis reports to deal
 with false
-alarms~\cite{ruthruff_predicting_2008,kremenek2004correlation,heckman2009model,jung2005taming}.
+alarms~\citep{ruthruff_predicting_2008,kremenek2004correlation,heckman2009model,jung2005taming}.
 These studies usually combine information extracted from both the static
 analysis reports as well as the project being examined to derive conclusions
 and infer if an alarm is an actual software flaw. In contrast, we hypothesize
@@ -69,17 +69,17 @@ pre-processing and training steps for each inspected program. Seeing that some
 tools perform better than others in specific tasks due to different analysis
 methods, the usage of multiple static analysis tools might also increase static
 analysis coverage, reducing the number of false negatives that could occur by
-using a single tool~\cite{black2009static}. Naturally, using multiple tools
+using a single tool~\citep{black2009static}. Naturally, using multiple tools
 also inflates the absolute number of false positives. This downside, however,
 is an acceptable compromise given the corresponding improvement in the
 \emph{rate} of false positives --- the core of this work.
 
 Furthermore, some static analysis techniques require significant processing to
-perform the analysis~\cite{pan_bug_2006}, which makes the whole static analysis
+perform the analysis~\citep{pan_bug_2006}, which makes the whole static analysis
 process expensive. The latter issue also impacts research on static analysis,
 since much processing is needed when one wants to analyze how different tools
 perform on a large software corpus, study false alarm rates, or investigate
-vulnerabilities behavior. Johnson et al.~\cite{johnson_why_2013} conducted a
+vulnerabilities behavior. \cite{johnson_why_2013} conducted a
 survey to understand static analysis adoption on development processes.
 The authors found that false positives and the way warnings are presented to the user are
 some of the reasons why static analyzers are underused, and that improving the
@@ -104,7 +104,7 @@ analyzer has its unique report format, kiskadee converts all reports generated t
 a common output language. By running multiple static analyzers on the same code
 base, kiskadee reduces the number of false negatives in the analysis. To
 address false positives, kiskadee ranks warnings in the static analysis reports
-using the AdaBoost algorithm's~\cite{freund1999short} classification
+using the AdaBoost algorithm's~\citep{freund1999short} classification
 probabilities.  Warnings with the highest rank are more likely to indicate real
 and more critical software flaws and warnings with the lowest rank are more
 likely to be false positives. In this context, a warning is a single issue
@@ -132,8 +132,8 @@ false positive. After the labeling step, we extracted the
 characteristics used to train our model. These did not include
 any characteristics from the analyzed source code and project history, which
 tend to be the most relevant ones when predicting warnings positiveness, as
-shown in previous works~\cite{yoon2014reducing, jung2005taming}. To compensate
-for this, we used an ensemble learning method~\cite{aima} to train several
+shown in previous works~\citep{yoon2014reducing, jung2005taming}. To compensate
+for this, we used an ensemble learning method~\citep{aima} to train several
 weak classifiers, which were then able to vote about the positiveness of new examples.
 Finally, instead of just classifying new examples as true and false positives,
 we ranked the warnings based on their probabilities of being real flaws, where
