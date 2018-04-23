@@ -6,12 +6,12 @@
 
 ## TODO
 
+- Do not start objectives section (intro) talking about kiskadee
 - Set index words
-- Add kiskadee screenshots
+- Improve kiskadee screenshots
 - future work: use user feedback to enhance the ranking model
 - extend terminology section (see tcc)
 - Add kiskadee bug report overview in introduction
-- Explain adaboost algorithm
 
 ### Ideas left from SANER paper
 
