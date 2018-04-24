@@ -1,9 +1,5 @@
 # Master's degree dissertation - Athos Ribeiro - IME-USP
 
-## Questions
-
-- Should I keep names before citations with this references styles? example: Jonson et al JOHNSON Et Al, 2017 performed...
-
 ## TODO
 
 - Do not start objectives section (intro) talking about kiskadee
