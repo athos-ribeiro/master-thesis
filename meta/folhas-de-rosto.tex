@@ -38,8 +38,7 @@
 % A definição deste ambiente está no pacote imeusp; se você não
 % carregar esse pacote, precisa cuidar desta página manualmente.
 \begin{dedicatoria}
-%Esta seção é opcional e fica numa página separada; ela pode ser usada para
-%uma dedicatória ou epígrafe.
+  Para Gabi.
 \end{dedicatoria}
 
 % Após a capa e as páginas de rosto, começamos a numerar as páginas; com isso,
@@ -58,17 +57,28 @@
 \chapter*{Agradecimentos}
 %\epigrafe{Do. Or do not. There is no try.}{Mestre Yoda}
 
+I would like to thank my advisor, professor Fabio Kon, whose support was
+essential for all my research activities. It had been an honor to learn how
+research should be performed in computer science from Fabio.  Professor Paulo
+Roberto Miranda Meirelles for his support and for the trust and confidence he
+has placed on me through the years. Dr. Paul E. Black and the Software
+Assurance Metrics and Tool Evaluation (SAMATE) team for all their patience and
+teachings during my stay at the US National Institute of Standards and
+Technology, which inspired my work. The Fedora Project community, for receiving
+our ideas in the Google Summer of Code project and giving us feedback on our
+work. We would also like to thank Nelson Lago for all his ideas and wonderful
+reviews.
+
 Athos Ribeiro was funded by CAPES during this research extent.
 
-David Silva bacame a core contributor to kiskadee code base through the Google
+David Silva became a core contributor to kiskadee code base through the Google
 Summer of Code program under the Fedora Project organization mentored by Athos
 Ribeiro.
 
 The following undergraduate students of University of Brasília contributed to
 kiskadee's source code and developed most of the current system front end, as of
-the date this document was written. They did so so under a maitainance course
-taught by Dr. Paulo Roberto Miranda Meirelles.
-
+the date this document was written. They did so so under a maintenance course
+taught by Prof. Paulo Roberto Miranda Meirelles.
 They are Adailson Santos,
 Daniel Moura,
 Danilo Barros,
@@ -90,7 +100,8 @@ Vitor Bertulucci, and
 Vitor Borges.
 Thank you for your valuable contributions.
 
-Finally, we would also like to thank Nelson Lago for all his ideas and reviews.
+Finally, I would like to thank my parents, Edivaldo and Rita, for always
+understanding and supporting me unconditionally.
 
 % O resumo é obrigatório, em português e inglês. Este comando também gera
 % automaticamente a referência para o próprio documento, conforme as normas
@@ -99,40 +110,40 @@ Finally, we would also like to thank Nelson Lago for all his ideas and reviews.
 
 Embora exista grande variedade de analisadores estáticos de código-fonte
 disponíveis no mercado, tanto com licenças proprietárias, quanto com licenças
-livres, cada uma destas ferramentas mostra melhor desempenho em um pequeno
-conjunto de problemas distinto, dificultando a escolha de uma ferramenta de
+livres, cada uma dessas ferramentas mostra melhor desempenho em um pequeno
+conjunto de problemas distinto, dificultando a escolha de uma única ferramenta de
 análise estática para analisar um programa. A combinação das análises de
 diferentes ferramentas pode reduzir o número de falsos negativos, mas gera um
 aumento no número de falsos positivos (que já é alto para muitas dessas
-ferramentas). Uma solução interessante é filtrar estes resultados para
+ferramentas). Uma solução interessante é filtrar esses resultados para
 identificar os problemas com menores probabilidades de serem falsos
 positivos.
 Este trabalho apresenta \textit{kiskadee}, um sistema para promover o uso da
 análise estática de código fonte durante o ciclo de desenvolvimento de
-software provendo relatórios de análise estática ranqueados. Primeiro,
+software provendo relatórios de análise estática ranqueados. Primeiramente,
 \textit{kiskadee} roda diversos analisadores estáticos no código-fonte. Em seguida,
 utilizando um modelo de classificação, os potenciais bugs detectados pelos
 analisadores estáticos são ranqueados conforme sua importância, onde defeitos
 críticos são colocados no topo de uma lista, e potenciais falsos positivos,
 ao fim da mesma lista.
-Para treinar o modelo de classificação do \textit{kiskadee}, nós realizamos uma
+Para treinar o modelo de classificação do \textit{kiskadee}, realizamos uma
 pós-análise nos relatórios gerados por três analisadores estáticos ao
 analisarem casos de teste sintéticos disponibilizados pelo \textit{National
 Institute of Standards and Technology} (NIST) dos Estados Unidos. Para tornar
 a técnica apresentada o mais genérica possível, limitamos nossos dados às
 informações contidas nos relatórios de análise estática das três ferramentas,
 não utilizando outras informações, como históricos de mudança ou métricas
-extraídas do código-fonte dos programas inspecionados. as características
-extraídas destes relatórios foram utilizadas para treinar um conjunto de
+extraídas do código-fonte dos programas inspecionados. As características
+extraídas desses relatórios foram utilizadas para treinar um conjunto de
 árvores de decisão utilizando o algoritmo AdaBoost para gerar um
-classificador mais forte, atingindo uma acurácia de classificação de 0.8 (a
-taxa de falsos positivos das ferramentas utilizadas foi de 0.61, quando
-combinadas). Finalmente, nós utilizamos este classificador para ranquear os
+classificador mais forte, atingindo uma acurácia de classificação de 0,8 (a
+taxa de falsos positivos das ferramentas utilizadas foi de 0,61, quando
+combinadas). Finalmente, utilizamos esse classificador para ranquear os
 alarmes dos analisadores estáticos nos baseando na probabilidade de um dado
-alarme ser de fato um bug no código-fonte. Nossos resultados experimentais
+alarme ser de fato um bug no código-fonte. Resultados experimentais
 mostram que, em média, quando inspecionando alarmes ranqueados pelo \textit{kiskadee},
-encontram-se $5.2$ vezes menos falsos positivos antes de se encontrar cada bug
-quando a mesma inspeção é realizada para uma lista ordenada e forma aleatória.
+encontram-se $5,2$ vezes menos falsos positivos antes de se encontrar cada bug
+quando a mesma inspeção é realizada para uma lista ordenada de forma aleatória.
 
 \end{resumo}
 
