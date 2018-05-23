@@ -1,7 +1,7 @@
 \chapter{Continuous Static Analysis Tool Design}
 \label{ch:kiskadee}
 
-In Free/Libre and Open Source Software (FLOSS) projects, a
+In Free/Libre/Open Source Software (FLOSS) projects, a
 common source of bug reports are the GNU/Linux distributions.
 These distributions ship thousands of software projects, which
 they call packages. Distribution developers refer to the
@@ -110,7 +110,7 @@ claim that they only provide stable software every other release.  Other
 projects release versions too fast, making the effort of packaging every single
 release pointless to the distribution packager.
 
-Fedora Project uses an external system to monitor the software projects they
+The Fedora Project uses an external system to monitor the software projects they
 distribute. Anitya~\citep{anitya} maps upstream projects to distribution package
 names. Whenever a new version of an upstream project is released, Anitya
 publishes the new release in a Fedora infrastructure publish-subscribe system
@@ -140,7 +140,7 @@ analyzers}\footnote{\url{samate.nist.gov/index.php/Source_Code_Security_Analyzer
 which they define as static analyzers that \textit{examine source code to
 detect and report weaknesses that can lead to security vulnerabilities}.
 
-We ran\textit{kiskadee} with three static analysis tools to generate the
+We ran \textit{kiskadee} with three static analysis tools to generate the
 warnings data set for our experiments. Based on SAMATE tools list and
 references, the criteria to select the tools were:
 \begin{enumerate}
@@ -308,7 +308,7 @@ Moreover, as previously  mentioned in Section~\ref{sec:analyzers}, if we want
 to integrate new static analyzers to kiskadee, this must be performed in
 Firehose, by implementing a new parser for the target static analyzer. During
 the Google Summer of Code
-2017\footnote{\url{https://summerofcode.withgoogle.com/}} program, we extended
+2017\footnote{\url{https://summerofcode.withgoogle.com/archive/2017/projects/5729359134457856/}} program, we extended
 Firehose to parse both the Frama-C static analyzer, which we use for our
 experiments described in Chapter~\ref{ch:ranking}, and the Flawfinder static
 analyzer.
@@ -329,7 +329,7 @@ applications, kiskadee exposes an API. The API responses contain the following i
   \item The full analysis report for each package version analyzed, in the Firehose format. Also includes ranking information.
 \end{itemize}
 
-Provided with this API and aided by students at University of Brasília (UnB),
+Provided with this API and aided by students from the University of Brasília (UnB),
 we developed a user interface (UI) for kiskadee. We based many of the UI ideas
 on concepts previously discussed by the Fedora Static Analysis SIG on the
 project development mailing lists. Proper credits and acknowledgements for the
@@ -338,7 +338,7 @@ beginning of this document.
 
 Figure~\ref{fig:kiskadee-main}, Figure~\ref{fig:kiskadee-list}, and
 Figure~\ref{fig:kiskadee-list-complete} show some screens of the UI developed
-by the students. The next section presents more speific details on kiskadee's
+by the students. The next section presents more specific details on kiskadee's
 implementation.
 
 \begin{figure}[!h]
@@ -404,12 +404,11 @@ Listing~\ref{lst:fetcher} shows a complete example of a custom kiskadee fetcher 
 \lstinputlisting[frame=none, caption=Example kiskadee fetcher, style=mypython, label={lst:fetcher}]{listings/example.py}
 \end{minipage}
 
-A few different software projects overlap with certain kiskadee features. We
-finish this chapter by listing and discussing some of these software projects
-in the next section.
-
 \section{Related Projects}
 \label{sec:related_projects}
+
+A few different software projects overlap with certain kiskadee features. We
+finish this chapter by listing and discussing some of these software projects.
 
 \subsection{Debile}
 
@@ -443,7 +442,7 @@ Coala (\url{https://coala.io}) provides a single interface to run multiple
 static analyzers in software packages written in numerous programming languages
 and producing a report in a common reporting language defined by the Coala
 project. The tool is not restrained to security oriented static analysis, it
-also runs linters and other analyzers to check code quality and style.
+also runs linters and other analyzers to check code quality and style. \\
 
 While all the projects mentioned above are interesting projects, and Coala
 being a production-level open source software sponsored by large companies,

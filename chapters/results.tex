@@ -121,7 +121,7 @@ of the model in balancing these two goals.
 \begin{figure}
 \centering
 \includegraphics[width=.75\textwidth]{figures/precisions.pdf}
-  \caption{Precision of each individual tool and aggregated tools (precision of all tools combined), compared with the predictive model results}\label{fig:precisions}
+  \caption{Precision of each individual tool and aggregated tools (precision of all tools combined), compared with our predictive model results}\label{fig:precisions}
 \end{figure}
 
 Another aspect of interest of these results is the relevance of the features.
@@ -156,8 +156,14 @@ location.
 
 As mentioned before, we do not need to limit ourselves to a direct binary
 classification; it is also possible to use the trained predictive model to rank
-warnings according to their expected relevance. Next, we present and discuss the results obtained with
-our ranking approach and compare it with a random ranking algorithm.
+warnings according to their expected relevance. Next, we present and discuss
+the results obtained with our ranking approach and compare it with a random
+ranking algorithm.  We compare our model to a random ranking algorithm instead
+of one of the models studied and presented as related works due to the
+complications related to experimental replication. For that, we would need to
+change original works to use our same tools and datasets. Furthermore, related
+works also used random ranking algorithms as a comparison base, thus, doing the
+same for our research allows comparisons with similar studies.
 
 To evaluate our ranking
 performance over the test set, we refer to the methodology presented by
