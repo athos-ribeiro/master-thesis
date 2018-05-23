@@ -73,6 +73,13 @@ analyzer warnings presented in this thesis is to integrate these tools, which
 aggregate warnings from multiple static analyzers in dashboards, with the
 techniques introduced here. 
 
+kiskadee is licensed under the GNU Affero General Public License. Its
+development repository, the complete project documentation, and the data set
+used for the ranking experiments here presented are available at
+\url{pagure.io/kiskadee}.
+
+\section{Future Work}
+
 It is possible to employ our ranking strategy to reduce the cost of
 inspecting false alarms by setting a minimum value for the rate in which real
 flaws are found per inspection in a ranked list (i.e., a confidence level),
@@ -116,7 +123,30 @@ the field. Studying the static analysis techniques used by FLOSS tools and
 comparing them to the ones used by proprietary tools (when feasible) and to the
 state of the art is left as the last topic for future work.
 
-kiskadee is licensed under the GNU Affero General Public License. Its
-development repository, the complete project documentation, and the data set
-used for the ranking experiments here presented are available at
-\url{pagure.io/kiskadee}.
+\section{Outlook}
+
+Source code static analysis can be reduced to the halting problem, hence, it is
+undecidable. This undecidability problem may drive researchers away from the
+field, since one may argue that there is no motivation to work on an issue
+known to be unsolvable. Recent studies have proven that applying different 
+techniques to find heuristics to reduce the false positive rates of static
+analyzers provide means to produce tools that can find software flaws with
+false positive rates that are low enough to produce reports that are valuable
+to software developers and industry.
+
+Studying new techniques to reduce the amount of false positives on the static
+analyzer level is a relevant field which still needs progress. Most of the
+static analysis tools that can produce reports with low false positive
+rates are proprietary tools and their internal techniques are not always
+publicly available. Open source static analyzer developers should be as close
+as possible from the academy so they can always test and implement new
+techniques in production level tools to reduce the false positive rate gaps
+that exist between proprietary and open source static analysis tools. Software
+engineering practitioners should also look into static analysis as a technique
+to improve code quality and prevent critical bugs to be released with
+production software versions.
+
+Finally, open source communities should embrace static analysis, preferably
+with open source static analyzers, to both improve the quality of the code they
+ship and to provide feedback to static analyzer projects so they can keep
+improving their tools and techniques.
