@@ -107,11 +107,15 @@ SAMATE~\citep{black_counting_2011} will be used, in the sense that a software
 design, implementation, or operation that could be triggered, resulting in a
 security failure. A vulnerability is the result of one or more
 \textit{weaknesses} in software requirements, design, implementation, or
-operation. This definition also means that a single weakness may or may not result in a
-vulnerability, depending on the software's usage and execution. Whenever we use
-\textit{bugs} or \textit{flaws}, we mean weaknesses, and we will usually refer
-to them as flaws, as in SAMATE's SATE V Ockham Sound Analysis Criteria
-analysis~\citep{black_sate_2016}.
+operation. This definition also means that a single weakness may or may not
+result in a vulnerability, depending on the software's usage and execution.
+Whenever we use \textit{bugs} or \textit{flaws}, we mean weaknesses, and we
+will usually refer to them as flaws, as in SAMATE's SATE V Ockham Sound
+Analysis Criteria analysis~\citep{black_sate_2016}. This last work also states
+that static analyzers examine the source code of programs to find problems.
+In this sense, we use the term static analysis to reference the
+automatic search for problems in source code. A static analyzer receives source
+code as input and returns a report pointing to problems as its output.
 
 The MITRE Corporation\footnote{\url{mitre.org}} maintains the \textit{Common Weakness
 Enumeration}~\citep{cwe_page} (CWE), a community-developed dictionary of
