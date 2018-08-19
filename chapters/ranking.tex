@@ -17,8 +17,10 @@ adequately process the output of multiple tools, we need to normalize the
 information provided by them. We approach this in two levels: at the first
 level, we translate alarms from the different tools into a unified format and
 apply labels to each warning to distinguish them into either true positives or
-false positives. At the second level, we associate each warning to specific
-features that will compose a data set to train our prediction model.
+false positives. The labeling step is feasible beacause we use a set of known
+softwre flaws as input for the static analyzers, as we describe in the next
+section. At the second level, we associate each warning to specific features
+that will compose a data set to train our prediction model.
 
 \subsection{Choosing Data Sources}
 
@@ -83,10 +85,12 @@ however, in studies focusing on negatives.
 
 \input{figures/venn_out.tex}
 
-Similarly, there is no difference between processing different test
-subsets with each tool and processing $\{T_1 \cup T_2\cup\dots T_n\} (Figure~\ref{fig:venn_union}$):
-test cases that cannot be addressed by some tool will not be in
-both cases. Again, focusing on negatives would invalidate this.
+Similarly, there is no difference between processing different test subsets
+with each tool and processing $\{T_1 \cup T_2\cup\dots T_n\}
+(Figure~\ref{fig:venn_union}$): test cases that cannot be addressed by some
+tool will not be in both cases. Again, focusing on negatives would invalidate
+this, hence it is important to reinforce that we only care about positives and
+false positives for our experiments.
 
 \input{figures/venn_union.tex}
 
@@ -212,7 +216,7 @@ demonstrate that the tool warning positiveness is highly correlated to code
 locality.  However, we only use the data extracted from the warnings
 themselves, not relying on other information, such as the analyzed project
 change history, size and complexity metrics, or artifact names (e.g., file name,
-function name, package name). By not collecting such information, we are can
+function name, package name). By not collecting such information, we can
 produce a more generic model applicable to different contexts without the
 need to perform the expensive training step for each project one may want to
 analyze.
