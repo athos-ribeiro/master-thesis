@@ -80,6 +80,15 @@ used for the ranking experiments here presented are available at
 
 \section{Future Work}
 
+Juliet was the only dataset used to perform our experiments. It is important to
+find or build other datasets and include more static analyzers in the
+experiments to make the results presented during this thesis more solid. One
+possibility would be to manually build a first dataset by searching FLOSS
+repositories for patches that fix Common Vulnerabilities and Exposures (CVE)
+and tag that code section (before applying the patch) as buggy. Then, we could
+look for methods to automate this labeling steps and automate the construction
+of such dataset. This is left for future work.
+
 It is possible to employ our ranking strategy to reduce the cost of
 inspecting false alarms by setting a minimum value for the rate in which real
 flaws are found per inspection in a ranked list (i.e., a confidence level),
