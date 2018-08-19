@@ -69,10 +69,11 @@ pre-processing and training steps for each inspected program. Seeing that some
 tools perform better than others in specific tasks due to different analysis
 methods, the usage of multiple static analysis tools might also increase static
 analysis coverage, reducing the number of false negatives that could occur by
-using a single tool~\citep{black2009static}. Naturally, using multiple tools
-also inflates the absolute number of false positives. This downside, however,
-is an acceptable compromise given the corresponding improvement in the
-\emph{rate} of false positives --- the core of this work.
+using a single tool~\citep{black2009static}. Naturally, using multiple static
+analyzers to inspect the same program source code also inflates the absolute
+number of false positives. This downside, however, is an acceptable compromise
+given the corresponding improvement in the \emph{rate} of
+false positives --- the core of this work.
 
 Furthermore, some static analysis techniques require significant processing to
 perform the analysis~\citep{pan_bug_2006}, which makes the whole static analysis
@@ -101,7 +102,7 @@ In this study, we present \textit{kiskadee}, a system designed to support
 \emph{continuous} static analysis in software repositories using multiple
 static analyzers to generate, store, and rank warnings. Since each static
 analyzer has its unique report format, kiskadee converts all reports generated to
-a common output language. By running multiple static analyzers on the same code
+a common report language. By running multiple static analyzers on the same code
 base, kiskadee reduces the number of false negatives in the analysis. To
 address false positives, kiskadee ranks warnings in the static analysis reports
 using the AdaBoost algorithm's~\citep{freund1999short} classification
@@ -134,7 +135,7 @@ any characteristics from the analyzed source code and project history, which
 tend to be the most relevant ones when predicting warnings positiveness, as
 shown in previous works~\citep{yoon2014reducing, jung2005taming}. To compensate
 for this, we used an ensemble learning method~\citep{aima} to train several
-weak classifiers, which were then able to vote about the positiveness of new examples.
+weak classifiers, which were then combined to arbitrate about the positiveness of new examples.
 Finally, instead of just classifying new examples as true and false positives,
 we ranked the warnings based on their probabilities of being real flaws, where
 the top entries were more likely to be of interest, and the last entries were more
@@ -167,7 +168,7 @@ This work provides the following three major contributions:
 
 \begin{enumerate}[label=C\arabic*]
   \item \textbf{Continuous static analysis tool.}
-    \textit{kiskadee} is a tool able to continuously run different static\
+    \textit{Kiskadee} is a tool able to continuously run different static\
     analyzers in different software versions by monitoring software\
     repositories through an extensible interface. It then stores the analysis\
     reports into a database, using a common reporting format. If a kiskadee's\
@@ -193,7 +194,7 @@ This work provides the following three major contributions:
 
 The software packages produced during this research were released as open
 source software. Links for resources, documentation, related papers and source
-code are available at \url{https://pagure.io/kiskadee}. kiskadee's development
+code are available at \url{https://pagure.io/kiskadee}. Kiskadee's development
 was partially sponsored by the Google Summer of Code program under the Fedora
 Project organization supervision. Students of the University of Brasília also
 contributed to kiskadee source code through their \textit{Software Maintenance
@@ -201,7 +202,7 @@ and Evolution} course. We included appropriate acknowledgements and credits to e
 kiskadee contributor in the \emph{Acknowledgements} section, at the beginning of
 this thesis.
 
-\section{Work Structure}
+\section{Structure of This Work}
 \label{sec:structure}
 
 The rest of this thesis begins with a thorough description of the literature
